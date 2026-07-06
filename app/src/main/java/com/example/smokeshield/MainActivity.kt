@@ -26,4 +26,22 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         toolbar.setupWithNavController(navController, appBarConfiguration)
     }
+
+    // 1. Questa funzione fa apparire visivamente i tre puntini e il menu
+    override fun onCreateOptionsMenu(menu: android.view.Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    // 2. Questa funzione gestisce i click sulle voci del menu
+    override fun onOptionsItemSelected(item: android.view.MenuItem): Boolean {
+        // Troviamo il navController in modo sicuro e a prova di bomba
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as androidx.navigation.fragment.NavHostFragment
+        val navController = navHostFragment.navController
+
+        // La magia: se l'ID del menu combacia con l'ID del nav_graph, viaggia da solo!
+        return androidx.navigation.ui.NavigationUI.onNavDestinationSelected(item, navController)
+                || super.onOptionsItemSelected(item)
+    }
 }

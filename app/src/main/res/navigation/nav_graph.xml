@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.smokeshield.HomeFragment"
-        android:label="fragment_home"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_quizFragment"
@@ -23,12 +23,12 @@
     <fragment
         android:id="@+id/quizFragment"
         android:name="com.example.smokeshield.QuizFragment"
-        android:label="fragment_quiz"
+        android:label="@string/titolo_gioco"
         tools:layout="@layout/fragment_quiz" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.smokeshield.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="@string/titolo_profilo"
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profileFragment_to_settingsFragment"
@@ -37,6 +37,6 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.smokeshield.SettingsFragment"
-        android:label="fragment_settings"
+        android:label="@string/titolo_impostazioni"
         tools:layout="@layout/fragment_settings" />
 </navigation>

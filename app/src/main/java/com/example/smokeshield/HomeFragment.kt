@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.smokeshield.databinding.FragmentHomeBinding
-
+import androidx.navigation.fragment.findNavController
 class HomeFragment : Fragment() {
 
     // Variabili per il binding e il ViewModel
@@ -19,19 +19,15 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // 1. Inizializza il ViewModel
         viewModel = ViewModelProvider(this)[CrisisViewModel::class.java]
-
-        // 2. Gonfia il layout usando il Data Binding
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        // 3. Collega il ViewModel all'XML e imposta il ciclo di vita
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        // 4. Cosa succede al click del bottone? Chiama la logica nel ViewModel!
-        binding.btnAumentaStress.setOnClickListener {
-            viewModel.increaseStress()
+        // IL COMANDO DI NAVIGAZIONE
+        binding.btnSos.setOnClickListener {
+            // Controlla la mappa (nav_graph) e usa l'azione generata in automatico
+            findNavController().navigate(R.id.action_homeFragment_to_quizFragment)
         }
 
         return binding.root
