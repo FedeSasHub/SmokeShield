@@ -11,6 +11,6 @@
         android:layout_gravity="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:text="Schermata PROFILO" />
+        android:text="@string/schermata_profilo" />
 
 </FrameLayout>

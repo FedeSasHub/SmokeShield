@@ -2,4 +2,8 @@
     <string name="app_name">SmokeShield</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="schermata_home">Schermata HOME</string>
+    <string name="schermata_profilo">Schermata PROFILO</string>
+    <string name="schermata_quiz">Schermata QUIZ</string>
+    <string name="schermata_impostazioni">Schermata IMPOSTAZIONI</string>
 </resources>

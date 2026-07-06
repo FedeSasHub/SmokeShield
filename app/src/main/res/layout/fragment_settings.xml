@@ -11,6 +11,6 @@
         android:layout_gravity="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:text="Schermata IMPOSTAZIONI" />
+        android:text="@string/schermata_impostazioni" />
 
 </FrameLayout>
