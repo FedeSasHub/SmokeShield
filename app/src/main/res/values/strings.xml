@@ -6,4 +6,6 @@
     <string name="schermata_profilo">Schermata PROFILO</string>
     <string name="schermata_quiz">Schermata QUIZ</string>
     <string name="schermata_impostazioni">Schermata IMPOSTAZIONI</string>
+    <string name="livello_di_stress">Livello di Stress:</string>
+    <string name="aumenta_stress">AUMENTA STRESS</string>
 </resources>
