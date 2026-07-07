@@ -27,5 +27,9 @@
     <string name="settings_title">Impostazioni</string>
     <string name="btn_demo_notification">Demo: Notifica (1 Min)</string>
     <string name="btn_logout">Disconnetti (Logout)</string>
+    <string name="punteggio_0">Punteggio: 0</string>
+    <string name="punteggio_format">Punteggio: %1$d</string>
+    <string name="diff_test">Test (1 min)</string>
+
 
 </resources>
