@@ -44,6 +44,9 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)
+    implementation("com.squareup.retrofit2:retrofit:3.0.0")
+    //traduce il JSON in Kotlin
+    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
 
 //scarico librerie per navController
     val nav_version = "2.7.7"
