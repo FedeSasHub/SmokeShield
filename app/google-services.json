@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "50037665090",
+    "project_id": "smokeshield-3fd2e",
+    "storage_bucket": "smokeshield-3fd2e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:50037665090:android:d2e212bff6f3ca8ac42cdb",
+        "android_client_info": {
+          "package_name": "com.example.smokeshield"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnEbJTMEpQQYCJTih-2oCsLxsB3jFgjMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

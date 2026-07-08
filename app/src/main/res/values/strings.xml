@@ -12,11 +12,11 @@
     <string name="diff_hard">Difficile (10 min)</string>
     <string name="btn_sos">SOS</string>
     <string name="timer_placeholder">05:00</string>
-    <string name="question_placeholder">Quale di questi film è stato diretto da Stanley Kubrick?</string>
-    <string name="answer_a">Arancia Meccanica</string>
-    <string name="answer_b">Taxi Driver</string>
-    <string name="answer_c">Apocalypse Now</string>
-    <string name="answer_d">Blade Runner</string>
+    <string name="question_placeholder">Caricamento in corso...</string>
+    <string name="answer_a">...</string>
+    <string name="answer_b">...</string>
+    <string name="answer_c">...</string>
+    <string name="answer_d">...</string>
     <string name="profile_title">Il tuo Scudo</string>
     <string name="stats_crises_won">Crisi superate: 0</string>
     <string name="stats_time_saved">Tempo guadagnato: 0 min</string>
@@ -30,6 +30,15 @@
     <string name="punteggio_0">Punteggio: 0</string>
     <string name="punteggio_format">Punteggio: %1$d</string>
     <string name="diff_test">Test (1 min)</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="smokeshield">SmokeShield</string>
+    <string name="accedi_per_resistere_alla_crisi">Accedi per resistere alla crisi</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="accedi_o_registrati">ACCEDI O REGISTRATI</string>
+    <string name="oppure">OPPURE</string>
+    <string name="accedi_con_google">Accedi con Google</string>
 
 
 </resources>

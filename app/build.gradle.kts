@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -47,7 +48,14 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
     //traduce il JSON in Kotlin
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+// Importiamo la BoM di Firebase (gestisce le versioni in automatico senza conflitti)
+    implementation(platform("com.google.firebase:firebase-bom:34.15.0"))
 
+// Libreria Firebase Authentication per Email/Password
+    implementation("com.google.firebase:firebase-auth")
+
+// Libreria Google Play Services per il bottone di Google Sign-In
+    implementation("com.google.android.gms:play-services-auth:21.6.0")
 //scarico librerie per navController
     val nav_version = "2.7.7"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
