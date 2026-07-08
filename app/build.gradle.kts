@@ -57,7 +57,7 @@ dependencies {
 // Libreria Google Play Services per il bottone di Google Sign-In
     implementation("com.google.android.gms:play-services-auth:21.6.0")
 //scarico librerie per navController
-    val nav_version = "2.7.7"
+    val nav_version = "2.9.8"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
