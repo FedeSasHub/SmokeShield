@@ -26,24 +26,21 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        // Gestione del click sul pulsante SOS
         binding.btnSos.setOnClickListener {
-
-            // Aggiungiamo la terza opzione all'array
+            // Nuove opzioni esplicite per allinearci con il sistema Facile, Medio, Difficile
             val options = arrayOf(
-                getString(R.string.diff_easy),
-                getString(R.string.diff_hard),
-                getString(R.string.diff_test)
+                "Facile (1 min)",
+                "Medio (5 min)",
+                "Difficile (10 min)"
             )
 
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(getString(R.string.select_difficulty))
                 .setItems(options) { _, which ->
-                    // Usiamo 'when' per gestire le 3 casistiche
                     val minutes = when (which) {
-                        0 -> 5  // Indice 0: Facile
-                        1 -> 10 // Indice 1: Difficile
-                        else -> 1 // Indice 2: Test Orale
+                        0 -> 1  // Indice 0: Facile (1 min)
+                        1 -> 5  // Indice 1: Medio (5 min)
+                        else -> 10 // Indice 2: Difficile (10 min)
                     }
 
                     val bundle = bundleOf("minutes" to minutes)

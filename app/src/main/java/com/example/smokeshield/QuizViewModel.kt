@@ -26,13 +26,16 @@ class QuizViewModel : ViewModel() {
     private val _currentQuestion = MutableLiveData<Question>()
     val currentQuestion: LiveData<Question> get() = _currentQuestion
 
+    private val _isQuizFinished = MutableLiveData<Boolean>(false)
+    val isQuizFinished: LiveData<Boolean> get() = _isQuizFinished
+
     private var timer: CountDownTimer? = null
     private var questionIndex = 0
-
+    private var totalMillis: Long = 0
+    private var currentMillisLeft: Long = 0
     private var realQuestions = mutableListOf<Question>()
 
     init {
-        // Appena si apre la stanza, mostriamo una schermata di attesa elegante
         _currentQuestion.value = Question(
             "Connessione al database in corso...",
             listOf("Attendere prego...", "Attendere prego...", "Attendere prego...", "Attendere prego..."),
@@ -44,22 +47,16 @@ class QuizViewModel : ViewModel() {
     private fun fetchQuestionsFromApi() {
         viewModelScope.launch {
             try {
-                // INSERISCI QUI IL TUO LINK GIST
                 val gistUrl = "https://gist.githubusercontent.com/FedeSasHub/9c54bb581029d032826d290640aafb5e/raw/1118f2f18806e5b3b67a1c58a51feb5f92886d03/crisi_ita.json"
-
                 val response = TriviaApi.retrofitService.getItalianQuestions(gistUrl)
-
-                // IL TRUCCO È QUI: .shuffled() mescola casualmente le 150 domande!
                 realQuestions = response.results.map { parseTriviaQuestion(it) }.shuffled().toMutableList()
 
                 if (realQuestions.isNotEmpty()) {
                     Log.d("RETE_TEST", "Scaricamento completato: ${realQuestions.size} domande pronte e mescolate!")
-                    // Partiamo dalla primissima domanda del nuovo mazzo mescolato
                     _currentQuestion.value = realQuestions[0]
                 }
             } catch (e: Exception) {
                 Log.e("RETE_TEST", "Errore di rete: ${e.message}")
-                // In caso di assenza di internet, mostriamo un errore per non far crashare l'app
                 val errorQuestion = Question(
                     "Errore di rete. Controlla la connessione e riavvia la crisi.",
                     listOf("Riprova", "Riprova", "Riprova", "Riprova"),
@@ -80,10 +77,9 @@ class QuizViewModel : ViewModel() {
 
         val allAnswers = decodedIncorrect.toMutableList()
         allAnswers.add(decodedCorrect)
-        allAnswers.shuffle() // Mescola anche l'ordine delle 4 risposte
+        allAnswers.shuffle()
 
         val correctIndex = allAnswers.indexOf(decodedCorrect)
-
         return Question(decodedQuestion, allAnswers, correctIndex)
     }
 
@@ -94,31 +90,45 @@ class QuizViewModel : ViewModel() {
     }
 
     private fun startTimer(minutes: Int) {
-        val timeInMillis = minutes * 60 * 1000L
-        timer = object : CountDownTimer(timeInMillis, 1000) {
+        totalMillis = minutes * 60 * 1000L
+        currentMillisLeft = totalMillis
+
+        timer = object : CountDownTimer(totalMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
+                currentMillisLeft = millisUntilFinished
                 val minLeft = (millisUntilFinished / 1000) / 60
                 val secLeft = (millisUntilFinished / 1000) % 60
                 _timeLeft.value = String.format("%02d:%02d", minLeft, secLeft)
             }
             override fun onFinish() {
+                currentMillisLeft = 0
                 _timeLeft.value = "00:00"
+                _isQuizFinished.value = true
             }
         }.start()
     }
 
-    fun checkAnswer(selectedIndex: Int) {
-        // Se siamo nello stato di Errore o Caricamento, blocchiamo i bottoni
-        if (realQuestions.isEmpty() || realQuestions.size == 1 && realQuestions[0].text.contains("Errore")) return
+    fun evaluateAnswer(selectedIndex: Int): Boolean {
+        if (realQuestions.isEmpty() || (realQuestions.size == 1 && realQuestions[0].text.contains("Errore"))) return false
 
-        val currentQ = _currentQuestion.value ?: return
+        val currentQ = _currentQuestion.value ?: return false
+        val isCorrect = (selectedIndex == currentQ.correctAnswerIndex)
 
-        if (selectedIndex == currentQ.correctAnswerIndex) {
+        if (isCorrect) {
             _score.value = (_score.value ?: 0) + 10
         } else {
             _score.value = (_score.value ?: 0) - 5
         }
 
+        return isCorrect
+    }
+
+    fun getCorrectAnswerIndex(): Int {
+        return _currentQuestion.value?.correctAnswerIndex ?: 0
+    }
+
+    fun loadNextQuestion() {
+        if (realQuestions.isEmpty()) return
         questionIndex = (questionIndex + 1) % realQuestions.size
         _currentQuestion.value = realQuestions[questionIndex]
     }
@@ -126,5 +136,15 @@ class QuizViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         timer?.cancel()
+    }
+
+    fun forceEndQuiz() {
+        timer?.cancel()
+        _isQuizFinished.value = true
+    }
+
+    fun getElapsedMinutes(): Int {
+        val elapsedMillis = totalMillis - currentMillisLeft
+        return Math.ceil(elapsedMillis / 60000.0).toInt()
     }
 }

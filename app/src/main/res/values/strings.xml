@@ -7,7 +7,7 @@
     <string name="aumenta_stress">AUMENTA STRESS</string>
     <string name="app_name">SmokeShield</string>
     <string name="welcome_message">Pronto a resistere?</string>
-    <string name="select_difficulty">Scegli l\'intensità della crisi:</string>
+    <string name="select_difficulty">Scegli la difficoltà</string>
     <string name="diff_easy">Facile (5 min)</string>
     <string name="diff_hard">Difficile (10 min)</string>
     <string name="btn_sos">SOS</string>
@@ -17,10 +17,10 @@
     <string name="answer_b">...</string>
     <string name="answer_c">...</string>
     <string name="answer_d">...</string>
-    <string name="profile_title">Il tuo Scudo</string>
+    <string name="profile_title">La tua email</string>
     <string name="stats_crises_won">Crisi superate: 0</string>
     <string name="stats_time_saved">Tempo guadagnato: 0 min</string>
-    <string name="history_title">Storico Battaglie</string>
+    <string name="history_title">Storico</string>
     <string name="titolo_impostazioni">Impostazioni</string>
     <string name="titolo_profilo">Profilo</string>
     <string name="titolo_gioco">Gioco</string>

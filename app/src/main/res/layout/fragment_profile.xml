@@ -86,16 +86,27 @@
             app:layout_constraintTop_toBottomOf="@id/tv_stats_crises" />
 
         <TextView
+            android:id="@+id/tv_stats_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Record - Test: 0 | Facile: 0 | Difficile: 0"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FF9800"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_stats_time" />
+
+        <TextView
             android:id="@+id/tv_history_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:text="@string/history_title"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_stats_time" />
-
+            app:layout_constraintTop_toBottomOf="@id/tv_stats_record" />
         <Button
             android:id="@+id/btn_logout"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
