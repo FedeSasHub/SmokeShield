@@ -89,8 +89,9 @@ class LoginFragment : Fragment() {
                             .addOnCompleteListener { regTask ->
                                 binding.btnLogin.isEnabled = true
                                 if (regTask.isSuccessful) {
-                                    Toast.makeText(requireContext(), "Account creato con successo!", Toast.LENGTH_SHORT).show()
-                                    vaiAllaHome()
+                                    Toast.makeText(requireContext(), "Account creato!", Toast.LENGTH_SHORT).show()
+                                    // È UN NUOVO UTENTE -> VA ALL'ONBOARDING!
+                                    findNavController().navigate(R.id.action_loginFragment_to_onboardingFragment)
                                 } else {
                                     Toast.makeText(requireContext(), "Errore: ${regTask.exception?.message}", Toast.LENGTH_LONG).show()
                                 }
@@ -120,8 +121,16 @@ class LoginFragment : Fragment() {
             .addOnCompleteListener(requireActivity()) { task ->
                 binding.btnGoogleSignIn.isEnabled = true
                 if (task.isSuccessful) {
-                    Toast.makeText(requireContext(), "Accesso Google riuscito!", Toast.LENGTH_SHORT).show()
-                    vaiAllaHome()
+                    // Controlliamo se Google ci dice che l'utente è nuovo
+                    val isNewUser = task.result?.additionalUserInfo?.isNewUser == true
+
+                    if (isNewUser) {
+                        Toast.makeText(requireContext(), "Benvenuto! Configura il tuo profilo.", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.action_loginFragment_to_onboardingFragment)
+                    } else {
+                        Toast.makeText(requireContext(), "Bentornato!", Toast.LENGTH_SHORT).show()
+                        vaiAllaHome()
+                    }
                 } else {
                     Toast.makeText(requireContext(), "Errore Firebase Google: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                 }
