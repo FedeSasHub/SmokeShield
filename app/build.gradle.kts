@@ -5,11 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.smokeshield"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.smokeshield"
@@ -33,7 +29,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-// databinding per aggiornare variabili a schermo
     buildFeatures {
         dataBinding = true
     }
@@ -45,23 +40,22 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)
-    implementation("com.squareup.retrofit2:retrofit:3.0.0")
-    //traduce il JSON in Kotlin
-    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
-// Importiamo la BoM di Firebase (gestisce le versioni in automatico senza conflitti)
-    implementation(platform("com.google.firebase:firebase-bom:34.15.0"))
-// WorkManager per i processi in Background
-    implementation("androidx.work:work-runtime-ktx:2.9.0")
-// Libreria Firebase Authentication per Email/Password
-    implementation("com.google.firebase:firebase-auth")
 
-// Libreria Google Play Services per il bottone di Google Sign-In
+    implementation("com.squareup.retrofit2:retrofit:3.0.0")
+    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+
+    implementation(platform("com.google.firebase:firebase-bom:34.15.0"))
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
+
     implementation("com.google.android.gms:play-services-auth:21.6.0")
-//scarico librerie per navController
+
     val nav_version = "2.9.8"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
-    implementation("com.google.firebase:firebase-firestore")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)

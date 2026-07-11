@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.smokeshield.databinding.FragmentSettingsBinding
@@ -32,20 +34,16 @@ class SettingsFragment : Fragment() {
             val ore = binding.etHours.text.toString().toLongOrNull() ?: 0L
             val minuti = binding.etMinutes.text.toString().toLongOrNull() ?: 0L
 
-            // Convertiamo tutto in minuti
             val totalMinutes = (ore * 60) + minuti
 
-            // BLOCCO DI SICUREZZA ANDROID
             if (totalMinutes < 15) {
                 Toast.makeText(requireContext(), "Android richiede un minimo di 15 minuti per i task ripetitivi!", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
 
-            // Usiamo PERIODIC per ripetere all'infinito ogni X minuti
             val workRequest = PeriodicWorkRequestBuilder<MotivationWorker>(totalMinutes, TimeUnit.MINUTES)
                 .build()
 
-            // Cancelliamo eventuali routine vecchie (UPDATE/REPLACE) e facciamo partire quella nuova
             WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(
                 "DailyMotivation",
                 ExistingPeriodicWorkPolicy.UPDATE,
@@ -54,15 +52,15 @@ class SettingsFragment : Fragment() {
 
             Toast.makeText(requireContext(), "Routine attivata! Riceverai i tuoi dati ogni $totalMinutes minuti.", Toast.LENGTH_LONG).show()
         }
-        // IL BOTTONE PER LA DEMO ALL'ESAME!
+
         binding.btnTestNow.setOnClickListener {
-            val testRequest = androidx.work.OneTimeWorkRequestBuilder<MotivationWorker>()
-                .setInitialDelay(5, java.util.concurrent.TimeUnit.SECONDS)
+            val testRequest = OneTimeWorkRequestBuilder<MotivationWorker>()
+                .setInitialDelay(5, TimeUnit.SECONDS)
                 .build()
 
-            androidx.work.WorkManager.getInstance(requireContext()).enqueueUniqueWork(
+            WorkManager.getInstance(requireContext()).enqueueUniqueWork(
                 "TestMotivation",
-                androidx.work.ExistingWorkPolicy.REPLACE,
+                ExistingWorkPolicy.REPLACE,
                 testRequest
             )
 

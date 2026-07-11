@@ -2,7 +2,6 @@ package com.example.smokeshield
 
 import android.os.CountDownTimer
 import android.text.Html
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -52,11 +51,9 @@ class QuizViewModel : ViewModel() {
                 realQuestions = response.results.map { parseTriviaQuestion(it) }.shuffled().toMutableList()
 
                 if (realQuestions.isNotEmpty()) {
-                    Log.d("RETE_TEST", "Scaricamento completato: ${realQuestions.size} domande pronte e mescolate!")
                     _currentQuestion.value = realQuestions[0]
                 }
             } catch (e: Exception) {
-                Log.e("RETE_TEST", "Errore di rete: ${e.message}")
                 val errorQuestion = Question(
                     "Errore di rete. Controlla la connessione e riavvia la crisi.",
                     listOf("Riprova", "Riprova", "Riprova", "Riprova"),

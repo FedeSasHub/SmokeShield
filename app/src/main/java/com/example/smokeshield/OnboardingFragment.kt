@@ -16,7 +16,6 @@ class OnboardingFragment : Fragment() {
     private var _binding: FragmentOnboardingBinding? = null
     private val binding get() = _binding!!
 
-    // Dichiariamo gli strumenti di Firebase
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
@@ -26,7 +25,6 @@ class OnboardingFragment : Fragment() {
     ): View {
         _binding = FragmentOnboardingBinding.inflate(inflater, container, false)
 
-        // Inizializziamo Authentication e Firestore
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
@@ -40,11 +38,8 @@ class OnboardingFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            // Disabilitiamo il bottone mentre carichiamo i dati su internet
             binding.btnSalvaDati.isEnabled = false
-            Toast.makeText(requireContext(), "Salvataggio in corso...", Toast.LENGTH_SHORT).show()
 
-            // Prepariamo i dati in una "Mappa" (chiave -> valore)
             val userData = hashMapOf(
                 "anni_fumo" to anni.toInt(),
                 "sigarette_giorno" to sigarette.toInt(),
@@ -52,22 +47,17 @@ class OnboardingFragment : Fragment() {
                 "email" to (auth.currentUser?.email ?: "Sconosciuta")
             )
 
-            // Prendiamo l'ID unico dell'utente loggato
             val userId = auth.currentUser?.uid
 
             if (userId != null) {
-                // Creiamo la cartellina "users" e salviamo il documento col nome dell'ID utente
                 db.collection("users").document(userId)
                     .set(userData)
                     .addOnSuccessListener {
-                        // Salvataggio andato a buon fine!
-                        Toast.makeText(requireContext(), "Profilo salvato con successo!", Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.action_onboardingFragment_to_homeFragment)
                     }
-                    .addOnFailureListener { e ->
-                        // Errore di rete o di permessi
+                    .addOnFailureListener {
                         binding.btnSalvaDati.isEnabled = true
-                        Toast.makeText(requireContext(), "Errore nel salvataggio: ${e.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "Errore nel salvataggio", Toast.LENGTH_LONG).show()
                     }
             } else {
                 Toast.makeText(requireContext(), "Errore: Utente non trovato", Toast.LENGTH_SHORT).show()

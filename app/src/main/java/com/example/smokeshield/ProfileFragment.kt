@@ -68,8 +68,6 @@ class ProfileFragment : Fragment() {
                 val listaCrisi = mutableListOf<HistoryItem>()
 
                 var minutiTotali = 0
-
-                // Variabili coi nuovi nomi
                 var recordFacile = 0
                 var recordMedio = 0
                 var recordDifficile = 0
@@ -87,7 +85,6 @@ class ProfileFragment : Fragment() {
                         else -> "Difficile"
                     }
 
-                    // TRADUTTORE DEI VECCHI SALVATAGGI
                     val livelloNormalizzato = when (livelloGrezzo) {
                         "Test" -> "Facile"
                         "Facile" -> if (durata > 1) "Medio" else "Facile"
@@ -116,8 +113,6 @@ class ProfileFragment : Fragment() {
                 val numeroCrisi = listaCrisi.size
                 binding.tvStatsCrises.text = "Crisi superate: $numeroCrisi"
                 binding.tvStatsTime.text = "Tempo totale: $minutiTotali min"
-
-                // Mostriamo i nuovi nomi!
                 binding.tvStatsRecord.text = "Record - Facile: $recordFacile | Medio: $recordMedio | Difficile: $recordDifficile"
 
                 val adapter = HistoryAdapter(listaCrisi)

@@ -47,7 +47,6 @@ class QuizFragment : Fragment() {
         val minutesReceived = arguments?.getInt("minutes") ?: 5
         minutiScelti = minutesReceived
 
-        // NUOVA LOGICA LIVELLI
         livelloScelto = when {
             minutiScelti <= 1 -> "Facile"
             minutiScelti <= 5 -> "Medio"
@@ -132,7 +131,7 @@ class QuizFragment : Fragment() {
                 "punteggio" to finalScore,
                 "data" to currentDate,
                 "durata_minuti" to minutiTrascorsi,
-                "livello" to livelloScelto // Ora salverà Facile, Medio o Difficile
+                "livello" to livelloScelto
             )
 
             db.collection("users").document(userId).collection("history").add(historyData)

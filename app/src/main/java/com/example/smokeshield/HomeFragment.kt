@@ -27,7 +27,6 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.btnSos.setOnClickListener {
-            // Nuove opzioni esplicite per allinearci con il sistema Facile, Medio, Difficile
             val options = arrayOf(
                 "Facile (1 min)",
                 "Medio (5 min)",
@@ -38,9 +37,9 @@ class HomeFragment : Fragment() {
                 .setTitle(getString(R.string.select_difficulty))
                 .setItems(options) { _, which ->
                     val minutes = when (which) {
-                        0 -> 1  // Indice 0: Facile (1 min)
-                        1 -> 5  // Indice 1: Medio (5 min)
-                        else -> 10 // Indice 2: Difficile (10 min)
+                        0 -> 1
+                        1 -> 5
+                        else -> 10
                     }
 
                     val bundle = bundleOf("minutes" to minutes)

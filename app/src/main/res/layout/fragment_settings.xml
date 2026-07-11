@@ -83,7 +83,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ll_time_inputs" />
-        //bottone di test
+
         <Button
             android:id="@+id/btn_test_now"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
