@@ -50,7 +50,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
 // Importiamo la BoM di Firebase (gestisce le versioni in automatico senza conflitti)
     implementation(platform("com.google.firebase:firebase-bom:34.15.0"))
-
+// WorkManager per i processi in Background
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
 // Libreria Firebase Authentication per Email/Password
     implementation("com.google.firebase:firebase-auth")
 

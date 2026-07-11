@@ -118,7 +118,7 @@ class ProfileFragment : Fragment() {
                 binding.tvStatsTime.text = "Tempo totale: $minutiTotali min"
 
                 // Mostriamo i nuovi nomi!
-                binding.tvStatsRecord.text = "Record - Facile: $recordFacile | Medio: $recordMedio | Diff: $recordDifficile"
+                binding.tvStatsRecord.text = "Record - Facile: $recordFacile | Medio: $recordMedio | Difficile: $recordDifficile"
 
                 val adapter = HistoryAdapter(listaCrisi)
                 binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
