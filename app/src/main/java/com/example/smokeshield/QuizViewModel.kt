@@ -36,7 +36,7 @@ class QuizViewModel : ViewModel() {
 
     init {
         _currentQuestion.value = Question(
-            "Connessione al database in corso...",
+            "Connessione in corso...",
             listOf("Attendere prego...", "Attendere prego...", "Attendere prego...", "Attendere prego..."),
             0
         )

@@ -3,97 +3,131 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="24dp"
-        tools:context=".SettingsFragment">
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/tv_settings_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Promemoria"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_settings_desc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Ogni quanto tempo vuoi ricevere la notifica con i tuoi progressi?"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_settings_title" />
-
-        <LinearLayout
-            android:id="@+id/ll_time_inputs"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            app:layout_constraintTop_toBottomOf="@id/tv_settings_desc">
+            android:padding="24dp"
+            tools:context=".SettingsFragment">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <TextView
+                android:id="@+id/tv_settings_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Impostazioni"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/tv_theme_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Tema"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_settings_title" />
+
+            <RadioGroup
+                android:id="@+id/rg_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_theme_title">
+                <RadioButton android:id="@+id/rb_system" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Sistema" />
+                <RadioButton android:id="@+id/rb_light" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Chiaro" />
+                <RadioButton android:id="@+id/rb_dark" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Scuro" />
+            </RadioGroup>
+
+
+            <TextView
+                android:id="@+id/tv_settings_desc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:hint="Ore">
+                android:layout_marginTop="24dp"
+                android:text="Promemoria: seleziona la frequenza con cui riceverai le notifiche"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rg_theme" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_hours"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:text="24" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/ll_time_inputs"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Minuti">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_minutes"
-                    android:layout_width="match_parent"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                app:layout_constraintTop_toBottomOf="@id/tv_settings_desc">
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:text="0" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:hint="Ore">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_hours"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:text="24" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Minuti">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_minutes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:text="0" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_schedule"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="32dp"
-            android:text="ATTIVA ROUTINE"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_time_inputs" />
+            <Button
+                android:id="@+id/btn_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="32dp"
+                android:text="ATTIVA ROUTINE"
+                app:layout_constraintTop_toBottomOf="@id/ll_time_inputs" />
 
-        <Button
-            android:id="@+id/btn_test_now"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="16dp"
-            android:text="INVIA NOTIFICA DI PROVA (5 SEC)"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_schedule" />
+            <Button
+                android:id="@+id/btn_test_now"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:text="INVIA NOTIFICA DI PROVA"
+                app:layout_constraintTop_toBottomOf="@id/btn_schedule" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/btn_delete_account"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:text="Elimina Account"
+                android:textColor="#D32F2F"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_test_now"
+                app:layout_constraintVertical_bias="1.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

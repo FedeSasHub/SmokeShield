@@ -3,98 +3,105 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="24dp"
-        tools:context=".LoginFragment">
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/tv_app_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
-            android:text="@string/smokeshield"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            android:textColor="#D32F2F"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/accedi_per_resistere_alla_crisi"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_app_name" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_email"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:hint="@string/email"
-            app:layout_constraintTop_toBottomOf="@id/tv_subtitle">
+            android:padding="24dp"
+            tools:context=".LoginFragment">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_email"
+            <TextView
+                android:id="@+id/tv_app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                android:text="@string/smokeshield"
+                android:textColor="#D32F2F"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/accedi_per_resistere_alla_crisi"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_app_name" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="48dp"
+                android:hint="@string/email"
+                app:layout_constraintTop_toBottomOf="@id/tv_subtitle">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_password"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/password"
-            app:endIconMode="password_toggle"
-            app:layout_constraintTop_toBottomOf="@id/til_email">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_password"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="16dp"
+                android:hint="@string/password"
+                app:endIconMode="password_toggle"
+                app:layout_constraintTop_toBottomOf="@id/til_email">
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/accedi_o_registrati"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/til_password" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tv_or"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/oppure"
-            android:textColor="#888888"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_login" />
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/accedi_o_registrati"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/til_password" />
 
-        <Button
-            android:id="@+id/btn_google_sign_in"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/accedi_con_google"
-            app:icon="@android:drawable/ic_menu_myplaces"
-            app:layout_constraintTop_toBottomOf="@id/tv_or" />
+            <TextView
+                android:id="@+id/tv_or"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/oppure"
+                android:textColor="#888888"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_login" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/btn_google_sign_in"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/accedi_con_google"
+                app:icon="@drawable/ic_google"
+                app:iconGravity="textStart"
+                app:layout_constraintTop_toBottomOf="@id/tv_or" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

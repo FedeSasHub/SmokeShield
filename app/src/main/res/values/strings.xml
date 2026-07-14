@@ -3,7 +3,7 @@
 
     <!-- Testi Schermate Principali -->
     <string name="smokeshield">SmokeShield</string>
-    <string name="welcome_message">Pronto a resistere?</string>
+    <string name="welcome_message">Premere in caso di crisi</string>
     <string name="titolo_impostazioni">Impostazioni</string>
     <string name="titolo_profilo">Profilo</string>
     <string name="titolo_gioco">Gioco</string>
@@ -12,7 +12,7 @@
     <string name="history_title">Storico</string>
 
     <!-- Testi Login e Autenticazione -->
-    <string name="accedi_per_resistere_alla_crisi">Accedi per resistere alla crisi</string>
+    <string name="accedi_per_resistere_alla_crisi">Accedi</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="accedi_o_registrati">ACCEDI O REGISTRATI</string>
@@ -21,7 +21,7 @@
     <string name="btn_logout">Disconnetti (Logout)</string>
 
     <!-- Testi Onboarding -->
-    <string name="benvenuto_a_bordo">Benvenuto a bordo</string>
+    <string name="benvenuto_a_bordo">Benvenuto</string>
     <string name="per_aiutarti_al_meglio_durante_le_crisi_abbiamo_bisogno_di_conoscerti">Per aiutarti al meglio, abbiamo bisogno di conoscerti.</string>
     <string name="da_quanti_anni_fumi">Da quanti anni fumi?</string>
     <string name="sigarette_al_giorno_in_media">Sigarette al giorno (in media)</string>

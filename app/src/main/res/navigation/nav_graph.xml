@@ -56,7 +56,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.smokeshield.LoginFragment"
-        android:label="fragment_login"
+        android:label="Accedi"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"

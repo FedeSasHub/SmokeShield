@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.smokeshield.databinding.FragmentOnboardingBinding
@@ -24,9 +25,29 @@ class OnboardingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentOnboardingBinding.inflate(inflater, container, false)
-
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                auth.signOut()
+                findNavController().navigate(R.id.loginFragment)
+            }
+        })
+
+        val userId = auth.currentUser?.uid
+        if (userId != null) {
+            db.collection("users").document(userId).get().addOnSuccessListener { document ->
+                if (document.exists()) {
+                    findNavController().navigate(R.id.action_onboardingFragment_to_homeFragment)
+                }
+            }
+        }
 
         binding.btnSalvaDati.setOnClickListener {
             val anni = binding.etAnni.text.toString().trim()
@@ -47,8 +68,6 @@ class OnboardingFragment : Fragment() {
                 "email" to (auth.currentUser?.email ?: "Sconosciuta")
             )
 
-            val userId = auth.currentUser?.uid
-
             if (userId != null) {
                 db.collection("users").document(userId)
                     .set(userData)
@@ -64,8 +83,6 @@ class OnboardingFragment : Fragment() {
                 binding.btnSalvaDati.isEnabled = true
             }
         }
-
-        return binding.root
     }
 
     override fun onDestroyView() {

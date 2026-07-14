@@ -1,19 +1,31 @@
 package com.example.smokeshield
 
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        val prefs = getSharedPreferences("theme_prefs", Context.MODE_PRIVATE)
+        val mode = prefs.getInt("theme_mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        AppCompatDelegate.setDefaultNightMode(mode)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -22,10 +34,16 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
 
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.loginFragment, R.id.homeFragment, R.id.onboardingFragment)
+        )
         toolbar.setupWithNavController(navController, appBarConfiguration)
+
+        navController.addOnDestinationChangedListener { _, _, _ ->
+            invalidateOptionsMenu()
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(
@@ -42,17 +60,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: android.view.Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
 
-    override fun onOptionsItemSelected(item: android.view.MenuItem): Boolean {
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment) as androidx.navigation.fragment.NavHostFragment
-        val navController = navHostFragment.navController
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val currentId = navController.currentDestination?.id
+        if (currentId == R.id.loginFragment || currentId == R.id.onboardingFragment) {
+            menu?.clear()
+        }
+        return super.onPrepareOptionsMenu(menu)
+    }
 
-        return androidx.navigation.ui.NavigationUI.onNavDestinationSelected(item, navController)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item, navController)
                 || super.onOptionsItemSelected(item)
     }
 }

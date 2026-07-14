@@ -48,6 +48,16 @@ class HomeFragment : Fragment() {
                 .show()
         }
 
+        binding.btnTutorial.setOnClickListener {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Come funziona l'app")
+                .setMessage("Premi il grande tasto rosso SOS ogni volta che senti il forte desiderio di fumare.\n\nScegli la difficoltà in base all'intensità della crisi. Completare il minigioco ti aiuterà a distrarre la mente finché il desiderio non sarà passato!")
+                .setPositiveButton("Ho capito") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
+
         return binding.root
     }
 
