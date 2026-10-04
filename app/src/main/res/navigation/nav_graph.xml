@@ -47,6 +47,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_healthFragment"
+            app:destination="@id/healthFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -75,4 +78,12 @@
             android:id="@+id/action_onboardingFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
+    <!-- LA NUOVA SCHERMATA -->
+    <fragment
+        android:id="@+id/healthFragment"
+        android:name="com.example.smokeshield.HealthFragment"
+        android:label="Dashboard Salute"
+        tools:layout="@layout/fragment_health" />
+
 </navigation>

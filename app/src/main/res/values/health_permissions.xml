@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="health_permissions">
+        <!-- Stringhe per Android 14 -->
+        <item>android.permission.health.READ_STEPS</item>
+        <item>android.permission.health.READ_HEART_RATE</item>
+
+        <!-- Stringhe per la libreria Jetpack -->
+        <item>androidx.health.permission.StepsRecord.READ</item>
+        <item>androidx.health.permission.HeartRateRecord.READ</item>
+    </array>
+</resources>

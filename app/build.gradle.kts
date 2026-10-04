@@ -43,13 +43,16 @@ dependencies {
 
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
-
+// Google Health Connect (Ufficiale)
+    implementation("androidx.health.connect:connect-client:1.1.0-alpha07")
     implementation(platform("com.google.firebase:firebase-bom:34.15.0"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
 
     implementation("androidx.work:work-runtime-ktx:2.9.0")
-
+// Libreria Vico per la Data Visualization (Grafici)
+    implementation("com.patrykandpatrick.vico:core:1.14.0")
+    implementation("com.patrykandpatrick.vico:views:1.14.0")
     implementation("com.google.android.gms:play-services-auth:21.6.0")
 
     val nav_version = "2.9.8"
