@@ -6,104 +6,144 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?android:attr/colorBackground"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:padding="24dp"
             tools:context=".QuizFragment">
 
-            <TextView
-                android:id="@+id/tv_timer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="@string/timer_placeholder"
-                android:textSize="56sp"
-                android:textStyle="bold"
-                android:textColor="#D32F2F"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <TextView
-                android:id="@+id/tv_score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/punteggio_0"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#4CAF50"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_timer" />
-            <TextView
-                android:id="@+id/tv_question"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:gravity="center"
-                android:text="@string/question_placeholder"
-                android:textSize="22sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_timer" />
-
-            <LinearLayout
+            <!-- CARD SUPERIORE: TIMER E PUNTEGGIO -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="32dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginTop="12dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="?attr/colorSurface"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_question"
-                app:layout_constraintVertical_bias="0.901">
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/tv_timer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/timer_placeholder"
+                        android:textSize="52sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorSos" />
+
+                    <TextView
+                        android:id="@+id/tv_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/punteggio_0"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorHealth" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- CARD DOMANDE -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="1dp"
+                app:cardBackgroundColor="?attr/colorSurface"
+                app:layout_constraintTop_toBottomOf="@id/card_header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:gravity="center"
+                    android:text="@string/question_placeholder"
+                    android:textSize="18sp"
+                    android:textColor="?android:attr/textColorPrimary" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- OPZIONI DI RISPOSTA -->
+            <LinearLayout
+                android:id="@+id/ll_answers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/card_question"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <Button
                     android:id="@+id/btn_answer_1"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_marginVertical="4dp"
+                    android:layout_marginBottom="10dp"
+                    app:cornerRadius="16dp"
                     android:text="@string/answer_a" />
 
                 <Button
                     android:id="@+id/btn_answer_2"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_marginVertical="4dp"
+                    android:layout_marginBottom="10dp"
+                    app:cornerRadius="16dp"
                     android:text="@string/answer_b" />
 
                 <Button
                     android:id="@+id/btn_answer_3"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_marginVertical="4dp"
+                    android:layout_marginBottom="10dp"
+                    app:cornerRadius="16dp"
                     android:text="@string/answer_c" />
 
                 <Button
                     android:id="@+id/btn_answer_4"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_marginVertical="4dp"
+                    android:layout_marginBottom="16dp"
+                    app:cornerRadius="16dp"
                     android:text="@string/answer_d" />
 
             </LinearLayout>
 
+            <!-- TASTO TERMINA ORA -->
             <Button
                 android:id="@+id/btn_termina_ora"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
                 android:text="TERMINA ORA"
-                android:textColor="#757575"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintTop_toBottomOf="@id/ll_answers"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

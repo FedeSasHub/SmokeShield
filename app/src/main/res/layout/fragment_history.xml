@@ -5,65 +5,74 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:background="?android:attr/colorBackground"
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/tv_history_title"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="Storico Crisi"
+            android:layout_height="wrap_content"
+            android:text="Registro Crisi"
             android:textSize="28sp"
             android:textStyle="bold"
+            android:textColor="?android:attr/textColorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/tv_history_subtitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:layout_width="wrap_content"
-            android:text="Tutte le crisi che hai superato"
-            android:textColor="#888888"
+            android:text="Tutte le crisi che hai superato con successo"
+            android:textColor="?android:attr/textColorSecondary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_history_title"/>
 
-        <!-- NUOVO: BOX DELLE STATISTICHE -->
-        <LinearLayout
+        <!-- BOX DELLE STATISTICHE (Stile Card Stondeggiante) -->
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/ll_stats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="16dp"
-            android:background="#1A4CAF50"
-            android:padding="12dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="?attr/colorSurface"
             app:layout_constraintTop_toBottomOf="@id/tv_history_subtitle">
 
-            <TextView
-                android:id="@+id/tv_stats_crises"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Crisi superate: 0"
-                android:textStyle="bold"
-                android:textColor="#4CAF50"/>
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <TextView
-                android:id="@+id/tv_stats_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Tempo totale: 0 min"
-                android:textStyle="bold"
-                android:textColor="#4CAF50"/>
+                <TextView
+                    android:id="@+id/tv_stats_crises"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Crisi superate: 0"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorHealth"/>
 
-            <TextView
-                android:id="@+id/tv_stats_record"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Record - Facile: 0 | Medio: 0 | Difficile: 0"
-                android:textStyle="bold"
-                android:textColor="#4CAF50"/>
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_stats_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Tempo totale: 0 min"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorHealth"/>
+
+                <TextView
+                    android:id="@+id/tv_stats_record"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Record - Facile: 0 | Medio: 0 | Difficile: 0"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorPrimary"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- La RecyclerView (La lista delle crisi) -->
         <androidx.recyclerview.widget.RecyclerView
@@ -77,13 +86,13 @@
 
         <Button
             android:id="@+id/btn_back_profile"
-            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="TORNA AL PROFILO"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+            app:layout_constraintStart_toStartOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

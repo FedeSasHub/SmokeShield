@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SmokeShield</string>
+    <string name="app_name">Steady</string>
 
     <!-- Testi Schermate Principali -->
-    <string name="smokeshield">SmokeShield</string>
+    <string name="smokeshield">Steady</string>
     <string name="welcome_message">Premere in caso di crisi</string>
     <string name="titolo_impostazioni">Impostazioni</string>
     <string name="titolo_profilo">Profilo</string>
@@ -12,7 +13,7 @@
     <string name="history_title">Storico</string>
 
     <!-- Testi Login e Autenticazione -->
-    <string name="accedi_per_resistere_alla_crisi">Accedi</string>
+    <string name="accedi_per_resistere_alla_crisi">Stay steady under pressure</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="accedi_o_registrati">ACCEDI O REGISTRATI</string>

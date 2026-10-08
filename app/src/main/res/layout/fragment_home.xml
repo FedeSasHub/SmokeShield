@@ -6,7 +6,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
+        android:background="?android:attr/colorBackground"
+        android:padding="24dp"
         tools:context=".HomeFragment">
 
         <TextView
@@ -15,22 +16,24 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/welcome_message"
-            android:textSize="28sp"
+            android:textSize="26sp"
             android:textStyle="bold"
+            android:textColor="?android:attr/textColorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btn_sos"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:backgroundTint="#D32F2F"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:backgroundTint="@color/colorSos"
             android:text="@string/btn_sos"
-            android:textColor="@android:color/white"
-            android:textSize="56sp"
+            android:textColor="@color/white"
+            android:textSize="52sp"
             android:textStyle="bold"
-            app:cornerRadius="125dp"
+            app:cornerRadius="115dp"
+            app:elevation="4dp"
             app:layout_constraintBottom_toTopOf="@id/btn_tutorial"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:text="Come funziona l'app"
+            app:cornerRadius="16dp"
             app:icon="@android:drawable/ic_menu_help"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -5,12 +5,13 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?android:attr/colorBackground"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/tv_health_title"
@@ -19,6 +20,7 @@
                 android:text="Dashboard Salute"
                 android:textSize="28sp"
                 android:textStyle="bold"
+                android:textColor="?android:attr/textColorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,8 +29,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="I tuoi progressi"
-                android:textColor="#888888"
+                android:text="I tuoi progressi clinici"
+                android:textColor="?android:attr/textColorSecondary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_health_title" />
 
@@ -37,7 +39,7 @@
                 android:id="@+id/ll_metrics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:weightSum="2"
                 app:layout_constraintTop_toBottomOf="@id/tv_health_subtitle">
@@ -47,8 +49,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="8dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="2dp">
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="?attr/colorSurface">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -57,15 +60,19 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Passi Totali" />
+                            android:text="Passi Totali"
+                            android:textColor="?android:attr/textColorSecondary"
+                            android:textSize="12sp"
+                            android:textStyle="bold"/>
                         <TextView
                             android:id="@+id/tv_steps_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:text="---"
                             android:textSize="24sp"
                             android:textStyle="bold"
-                            android:textColor="#4CAF50"/>
+                            android:textColor="@color/colorHealth"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -74,8 +81,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="2dp">
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="?attr/colorSurface">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -84,25 +92,29 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Ultimo Battito" />
+                            android:text="Ultimo Battito"
+                            android:textColor="?android:attr/textColorSecondary"
+                            android:textSize="12sp"
+                            android:textStyle="bold"/>
                         <TextView
                             android:id="@+id/tv_bpm_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:text="---"
                             android:textSize="24sp"
                             android:textStyle="bold"
-                            android:textColor="#F44336"/>
+                            android:textColor="@color/colorSos"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
-            <!-- SELETTORE DEL TEMPO (Solo 7 e 30 gg) -->
+            <!-- SELETTORE DEL TEMPO -->
             <com.google.android.material.button.MaterialButtonToggleGroup
                 android:id="@+id/toggle_group_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 app:singleSelection="true"
                 app:selectionRequired="true"
@@ -128,10 +140,11 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_chart_crises"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="12dp"
+                android:layout_height="240dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:layout_constraintTop_toBottomOf="@id/toggle_group_time">
 
                 <LinearLayout
@@ -144,6 +157,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Andamento Crisi Superate"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>
 
@@ -161,10 +175,11 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_chart_steps"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="240dp"
                 android:layout_marginTop="16dp"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:layout_constraintTop_toBottomOf="@id/card_chart_crises">
 
                 <LinearLayout
@@ -177,6 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Andamento Passi Giornalieri"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>
 
@@ -190,15 +206,16 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- NUOVO: CARD 3: GRAFICO A LINEA DEL BATTITO CARDIACO -->
+            <!-- CARD 3: GRAFICO A LINEA DEL BATTITO CARDIACO -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_chart_heart_rate"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="240dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="24dp"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:layout_constraintTop_toBottomOf="@id/card_chart_steps"
                 app:layout_constraintBottom_toTopOf="@id/btn_back_profile">
 
@@ -212,10 +229,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Andamento Battito (BPM Medio)"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>
 
-                    <!-- Qui usiamo app:chart="line" per simulare un elettrocardiogramma -->
                     <com.patrykandpatrick.vico.views.chart.ChartView
                         android:id="@+id/vico_chart_heart_rate"
                         android:layout_width="match_parent"

@@ -5,28 +5,63 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?android:attr/colorBackground"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:padding="20dp">
 
             <!-- INTESTAZIONE -->
-            <TextView android:id="@+id/tv_welcome" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="Il tuo Profilo" android:textSize="28sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
-            <TextView android:id="@+id/tv_email_display" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:layout_width="wrap_content" android:text="Email sconosciuta" android:textColor="#888888" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/tv_welcome"/>
+            <TextView
+                android:id="@+id/tv_welcome"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Il tuo Profilo"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="?android:attr/textColorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_email_display"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:text="Email sconosciuta"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_welcome"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_motivazione"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="12dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:layout_constraintTop_toBottomOf="@id/tv_email_display">
-                <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="vertical" android:padding="16dp">
-                    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="La tua Motivazione" android:textStyle="bold"/>
-                    <TextView android:id="@+id/tv_motivo_display" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:layout_width="match_parent" android:text="Caricamento in corso..."/>
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="La tua Motivazione"
+                        android:textColor="?attr/colorPrimary"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/tv_motivo_display"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="match_parent"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:text="Caricamento in corso..."/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -38,6 +73,7 @@
                 android:text="I tuoi Risultati"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:textColor="?android:attr/textColorPrimary"
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/card_motivazione" />
@@ -47,12 +83,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:layout_constraintTop_toBottomOf="@id/tv_risultati_titolo">
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp" android:gravity="center">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Soldi Risparmiati" android:textColor="#888888" android:textStyle="bold" />
-                    <TextView android:id="@+id/tv_risparmio_soldi" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--- €" android:textSize="36sp" android:textStyle="bold" android:textColor="#4CAF50" android:layout_marginTop="4dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Soldi Risparmiati"
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tv_risparmio_soldi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--- €"
+                        android:textSize="36sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorHealth"
+                        android:layout_marginTop="4dp"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -65,31 +120,77 @@
                 android:layout_marginTop="12dp"
                 app:layout_constraintTop_toBottomOf="@id/card_soldi">
 
-                <com.google.android.material.card.MaterialCardView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="6dp" app:cardCornerRadius="12dp" app:cardElevation="2dp">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:orientation="vertical" android:gravity="center">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Giorni Clean" android:textColor="#888888"/>
-                        <TextView android:id="@+id/tv_giorni_senza" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="24sp" android:textStyle="bold" android:textColor="#2196F3"/>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="?attr/colorSurface">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Giorni Senza Fumo"
+                            android:textColor="?android:attr/textColorSecondary"/>
+                        <TextView
+                            android:id="@+id/tv_giorni_senza"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorPrimary"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="6dp" app:cardCornerRadius="12dp" app:cardElevation="2dp">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:orientation="vertical" android:gravity="center">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Non Fumate" android:textColor="#888888"/>
-                        <TextView android:id="@+id/tv_sigarette_evitate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="24sp" android:textStyle="bold" android:textColor="#FF9800"/>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="?attr/colorSurface">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Non Fumate"
+                            android:textColor="?android:attr/textColorSecondary"/>
+                        <TextView
+                            android:id="@+id/tv_sigarette_evitate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorTrophies"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
             <!-- BOTTONI AZIONE -->
 
-            <!-- NUOVO: BOTTONE TROFEI -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_trophies"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 android:text="I MIEI TROFEI"
-                android:backgroundTint="#FF9800"
+                app:backgroundTint="@color/colorTrophies"
+                app:cornerRadius="16dp"
                 app:layout_constraintTop_toBottomOf="@id/ll_stats_minori" />
 
             <com.google.android.material.button.MaterialButton
@@ -98,7 +199,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="DASHBOARD SALUTE E GRAFICI"
-                android:backgroundTint="#4CAF50"
+                app:backgroundTint="@color/colorHealth"
+                app:cornerRadius="16dp"
                 app:layout_constraintTop_toBottomOf="@id/btn_trophies" />
 
             <com.google.android.material.button.MaterialButton
@@ -108,6 +210,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="IMPOSTA LE TUE ABITUDINI"
+                app:cornerRadius="16dp"
                 app:layout_constraintTop_toBottomOf="@id/btn_health_dashboard" />
 
             <com.google.android.material.button.MaterialButton
@@ -117,6 +220,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="VISUALIZZA STORICO CRISI"
+                app:cornerRadius="16dp"
                 app:layout_constraintTop_toBottomOf="@id/btn_imposta_abitudini" />
 
             <!-- BOTTONI DI GESTIONE -->
@@ -128,12 +232,23 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="32dp"
                 android:contentDescription="Impostazioni"
+                app:backgroundTint="?attr/colorPrimary"
+                app:tint="@color/white"
                 app:srcCompat="@android:drawable/ic_menu_preferences"
                 app:layout_constraintTop_toBottomOf="@id/btn_vedi_storico"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <Button android:id="@+id/btn_logout" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="ESCI DALL'APP" android:textColor="#F44336" app:layout_constraintBottom_toBottomOf="@id/fab_settings" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/fab_settings" style="@style/Widget.MaterialComponents.Button.TextButton"/>
+            <Button
+                android:id="@+id/btn_logout"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="ESCI DALL'APP"
+                android:textColor="@color/colorSos"
+                app:layout_constraintBottom_toBottomOf="@id/fab_settings"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/fab_settings"
+                style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
