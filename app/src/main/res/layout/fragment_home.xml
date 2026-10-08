@@ -6,47 +6,153 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?android:attr/colorBackground"
+        android:background="@color/app_background"
         android:padding="24dp"
         tools:context=".HomeFragment">
 
-        <TextView
-            android:id="@+id/tv_welcome"
+        <!-- HEADER HOME -->
+
+        <!-- PULSANTE SOS CENTRALE -->
+        <LinearLayout
+            android:id="@+id/ll_home_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/welcome_message"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:textColor="?android:attr/textColorPrimary"
+            android:layout_marginTop="68dp"
+            android:gravity="center"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <Button
+            <TextView
+                android:id="@+id/tv_app_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/home_title"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="72dp"
+                tools:layout_editor_absoluteY="92dp" />
+
+            <TextView
+                android:id="@+id/tv_welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/welcome_message"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="15sp"
+                tools:layout_editor_absoluteX="129dp"
+                tools:layout_editor_absoluteY="134dp" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_sos"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
+            android:layout_width="201dp"
+            android:layout_height="203dp"
             android:backgroundTint="@color/colorSos"
             android:text="@string/btn_sos"
             android:textColor="@color/white"
-            android:textSize="52sp"
+            android:textSize="40sp"
             android:textStyle="bold"
-            app:cornerRadius="115dp"
+            app:cornerRadius="90dp"
             app:elevation="4dp"
-            app:layout_constraintBottom_toTopOf="@id/btn_tutorial"
+            app:layout_constraintBottom_toTopOf="@id/grid_quick_actions"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
+            app:layout_constraintTop_toBottomOf="@id/ll_home_header" />
 
-        <Button
+        <!-- GRIGLIA 2x2 A QUADRATO PER I 4 PULSANTI -->
+        <LinearLayout
+            android:id="@+id/grid_quick_actions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@id/btn_tutorial"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <!-- Prima Riga (Profilo & Impostazioni) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="10dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_goto_profile"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:text="PROFILO"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="16dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_goto_settings"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:text="IMPOSTAZIONI"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="16dp" />
+            </LinearLayout>
+
+            <!-- Seconda Riga (Salute & Trofei) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_goto_health"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:text="SALUTE"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorHealth"
+                    app:strokeColor="@color/colorHealth"
+                    app:cornerRadius="16dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_goto_trophies"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:text="TROFEI"
+                    android:textColor="#FF9800"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="16dp"
+                    app:strokeColor="#FF9800" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- PULSANTE TUTORIAL IN BASSO -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_tutorial"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="8dp"
             android:text="Come funziona l'app"
-            app:cornerRadius="16dp"
             app:icon="@android:drawable/ic_menu_help"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

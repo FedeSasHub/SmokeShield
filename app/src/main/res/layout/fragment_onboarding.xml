@@ -20,10 +20,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="@string/benvenuto_a_bordo"
+                android:text="Benvenuto/a in Steady!"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="28sp"
                 android:textStyle="bold"
-                android:textColor="?android:attr/textColorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

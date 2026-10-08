@@ -14,7 +14,9 @@
 
     <color name="colorHealth">#10B981</color>        <!-- Verde clinico brillante (Salute/Successo) -->
     <color name="colorTrophies">#EC4899</color>      <!-- Rosa/Magenta vivace per i Trofei -->
-    <color name="colorSos">#EF4444</color>           <!-- Rosso chiaro ma deciso per l'emergenza -->
+    <color name="colorSos">#EF4444</color>
+    <!-- Rosso chiaro ma deciso per l'emergenza -->
+    <color name="app_background">#F7F5F0</color>
 
     <color name="backgroundColor">#F8FAFC</color>    <!-- Sfondo grigio-azzurro lunare, rilassante -->
     <color name="surfaceColor">#FFFFFF</color>       <!-- Bianco puro per le card -->

@@ -52,27 +52,30 @@
                     app:cardCornerRadius="20dp"
                     app:cardElevation="2dp"
                     app:cardBackgroundColor="?attr/colorSurface">
+
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="16dp"
-                        android:orientation="vertical">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Passi Totali"
+                            android:text="Passi Totali (Ultimi 7gg)"
                             android:textColor="?android:attr/textColorSecondary"
                             android:textSize="12sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/tv_steps_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:text="---"
+                            android:textColor="@color/colorHealth"
                             android:textSize="24sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/colorHealth"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -89,13 +92,14 @@
                         android:layout_height="wrap_content"
                         android:padding="16dp"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Ultimo Battito"
+                            android:text="Ultimo Battito Registrato"
                             android:textColor="?android:attr/textColorSecondary"
                             android:textSize="12sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
                         <TextView
                             android:id="@+id/tv_bpm_count"
                             android:layout_width="wrap_content"
@@ -228,10 +232,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Andamento Battito (BPM Medio)"
+                        android:layout_marginBottom="8dp"
+                        android:text="Andamento Battito Cardiaco (BPM Medio)"
                         android:textColor="?android:attr/textColorPrimary"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="8dp"/>
+                        android:textStyle="bold" />
 
                     <com.patrykandpatrick.vico.views.chart.ChartView
                         android:id="@+id/vico_chart_heart_rate"

@@ -62,8 +62,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp">
                         <RadioButton android:id="@+id/rb_system" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Predefinito di sistema" />
-                        <RadioButton android:id="@+id/rb_light" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Chiaro (Clinico)" />
-                        <RadioButton android:id="@+id/rb_dark" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Scuro (Notturno)" />
+
+                        <RadioButton
+                            android:id="@+id/rb_light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chiaro " />
+
+                        <RadioButton
+                            android:id="@+id/rb_dark"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Scuro " />
                     </RadioGroup>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

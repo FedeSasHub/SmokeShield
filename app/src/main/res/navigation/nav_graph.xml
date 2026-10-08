@@ -19,6 +19,15 @@
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_trophiesFragment"
+            app:destination="@id/trophiesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_healthFragment"
+            app:destination="@id/healthFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_healthFragment2"
+            app:destination="@id/healthFragment" />
     </fragment>
 
     <fragment
