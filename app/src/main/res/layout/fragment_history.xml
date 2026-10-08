@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_history_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Storico Crisi"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_history_subtitle"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:text="Tutte le crisi che hai superato"
+            android:textColor="#888888"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_history_title"/>
+
+        <!-- NUOVO: BOX DELLE STATISTICHE -->
+        <LinearLayout
+            android:id="@+id/ll_stats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp"
+            android:background="#1A4CAF50"
+            android:padding="12dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_history_subtitle">
+
+            <TextView
+                android:id="@+id/tv_stats_crises"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Crisi superate: 0"
+                android:textStyle="bold"
+                android:textColor="#4CAF50"/>
+
+            <TextView
+                android:id="@+id/tv_stats_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Tempo totale: 0 min"
+                android:textStyle="bold"
+                android:textColor="#4CAF50"/>
+
+            <TextView
+                android:id="@+id/tv_stats_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Record - Facile: 0 | Medio: 0 | Difficile: 0"
+                android:textStyle="bold"
+                android:textColor="#4CAF50"/>
+        </LinearLayout>
+
+        <!-- La RecyclerView (La lista delle crisi) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_history"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintTop_toBottomOf="@id/ll_stats"
+            app:layout_constraintBottom_toTopOf="@id/btn_back_profile" />
+
+        <Button
+            android:id="@+id/btn_back_profile"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="TORNA AL PROFILO"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

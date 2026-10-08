@@ -1,116 +1,295 @@
 package com.example.smokeshield
 
+import android.app.DatePickerDialog
+import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.TextView
 import android.widget.Toast
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.smokeshield.databinding.FragmentProfileBinding
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.chip.Chip
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.concurrent.TimeUnit
+
+data class Trofeo(val giorniRichiesti: Int, val icona: String, val titolo: String, val descrizione: String)
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
+    private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
+
+    private val listaTrofei = listOf(
+        Trofeo(1, "🩸", "Sangue Pulito", "Il monossido di carbonio nel tuo sangue è sceso a livelli normali."),
+        Trofeo(3, "🫁", "Respiro Libero", "I tubi bronchiali iniziano a rilassarsi, rendendo più facile respirare."),
+        Trofeo(7, "👅", "Sensi Risvegliati", "Le terminazioni nervose si rigenerano: olfatto e gusto migliorano."),
+        Trofeo(14, "🫀", "Cuore Forte", "La circolazione sanguigna e la funzionalità polmonare sono in netto miglioramento."),
+        Trofeo(30, "🏃", "Rinascita", "Tosse e fiato corto diminuiscono del 30%. Inizia la vera disintossicazione."),
+        Trofeo(90, "🛡️", "Scudo di Ferro", "Il rischio di infarto ha iniziato a crollare drasticamente."),
+        Trofeo(180, "🌬️", "Polmoni Nuovi", "Le ciglia polmonari si sono rigenerate. Infezioni e tosse sono un lontano ricordo."),
+        Trofeo(365, "👑", "Traguardo d'Oro", "Il rischio di malattie cardiache è sceso esattamente alla metà rispetto a un fumatore.")
+    )
+
+    private var giorniUtente = 0L
+    private lateinit var trofeiAdapter: TrofeiAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        binding.tvEmailDisplay.text = auth.currentUser?.email ?: "Email sconosciuta"
+        trofeiAdapter = TrofeiAdapter(listaTrofei)
+        binding.rvTrofei.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvTrofei.adapter = trofeiAdapter
 
-        val userId = auth.currentUser?.uid
-        if (userId != null) {
-            db.collection("users").document(userId).get()
-                .addOnSuccessListener { document ->
-                    if (document != null && document.exists()) {
-                        val motivo = document.getString("motivazione")
-                        binding.tvMotivoDisplay.text = motivo ?: "Nessuna motivazione inserita"
-                    } else {
-                        binding.tvMotivoDisplay.text = "Dati non trovati nel Cloud"
-                    }
-                }
+        caricaDatiUtente()
 
-            scaricaCronologiaECalcolaStatistiche(userId)
-        }
-
-        // Il bottone ora viaggia verso la nuova schermata
-        binding.btnGoHealth.setOnClickListener {
+        // --- I 3 BOTTONI DI NAVIGAZIONE ---
+        binding.btnHealthDashboard.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_healthFragment)
         }
-
-        binding.fabSettings.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_settingsFragment)
+        binding.btnImpostaAbitudini.setOnClickListener { mostraDialogAbitudini() }
+        binding.btnVediStorico.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_historyFragment)
         }
 
+        binding.fabSettings.setOnClickListener { Toast.makeText(requireContext(), "Impostazioni in arrivo", Toast.LENGTH_SHORT).show() }
         binding.btnLogout.setOnClickListener {
             auth.signOut()
             findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
         }
-
-        return binding.root
     }
 
-    private fun scaricaCronologiaECalcolaStatistiche(userId: String) {
-        db.collection("users").document(userId).collection("history")
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                val listaCrisi = mutableListOf<HistoryItem>()
-                var minutiTotali = 0
-                var recordFacile = 0
-                var recordMedio = 0
-                var recordDifficile = 0
-
-                val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-
-                for (documento in querySnapshot.documents) {
-                    val dataString = documento.getString("data") ?: "Data sconosciuta"
-                    val punteggio = documento.getLong("punteggio")?.toInt() ?: 0
-                    val durata = documento.getLong("durata_minuti")?.toInt() ?: 0
-                    val livelloGrezzo = documento.getString("livello") ?: "Facile"
-                    val livelloNormalizzato = when (livelloGrezzo) {
-                        "Test" -> "Facile"
-                        "Facile" -> if (durata > 1) "Medio" else "Facile"
-                        else -> livelloGrezzo
+    private fun caricaDatiUtente() {
+        val utenteLoggato = auth.currentUser
+        if (utenteLoggato != null) {
+            binding.tvEmailDisplay.text = utenteLoggato.email ?: "Email non disponibile"
+            db.collection("users").document(utenteLoggato.uid).get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        binding.tvMotivoDisplay.text = document.getString("motivazione") ?: "Nessuna motivazione inserita"
+                        calcolaRisparmioETrofei(document)
                     }
-
-                    minutiTotali += durata
-                    when (livelloNormalizzato) {
-                        "Facile" -> if (punteggio > recordFacile) recordFacile = punteggio
-                        "Medio" -> if (punteggio > recordMedio) recordMedio = punteggio
-                        "Difficile" -> if (punteggio > recordDifficile) recordDifficile = punteggio
-                    }
-                    val dateObj = try { sdf.parse(dataString) ?: Date(0) } catch (e: Exception) { Date(0) }
-                    listaCrisi.add(HistoryItem(dataString, punteggio, dateObj, livelloNormalizzato))
                 }
-                listaCrisi.sortByDescending { it.dateObj }
-                binding.tvStatsCrises.text = "Crisi superate: ${listaCrisi.size}"
-                binding.tvStatsTime.text = "Tempo totale: $minutiTotali min"
-                binding.tvStatsRecord.text = "Record - Facile: $recordFacile | Medio: $recordMedio | Difficile: $recordDifficile"
+        }
+    }
 
-                val adapter = HistoryAdapter(listaCrisi)
-                binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
-                binding.rvHistory.adapter = adapter
+    private fun calcolaRisparmioETrofei(doc: DocumentSnapshot) {
+        val dataSmettoStr = doc.getString("data_smetto")
+        val quantitaGiorno = doc.getLong("abitudine_quantita") ?: 0L
+        val quantitaPacchetto = doc.getLong("abitudine_sigarette_pacchetto") ?: 20L
+        val prezzoPacchetto = doc.getDouble("abitudine_prezzo") ?: 0.0
+
+        if (dataSmettoStr.isNullOrEmpty() || quantitaGiorno == 0L) {
+            binding.tvRisparmioSoldi.text = "--- €"
+            binding.tvGiorniSenza.text = "-"
+            binding.tvSigaretteEvitate.text = "-"
+            return
+        }
+
+        try {
+            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val dataSmetto = sdf.parse(dataSmettoStr) ?: Date()
+            val diffMillis = Date().time - dataSmetto.time
+            var giorniPassati = TimeUnit.MILLISECONDS.toDays(diffMillis)
+            if (giorniPassati < 0) giorniPassati = 0
+
+            val sigaretteEvitate = giorniPassati * quantitaGiorno
+            val pacchettiEvitati = sigaretteEvitate.toDouble() / quantitaPacchetto.toDouble()
+            val soldiRisparmiati = pacchettiEvitati * prezzoPacchetto
+
+            binding.tvGiorniSenza.text = giorniPassati.toString()
+            binding.tvSigaretteEvitate.text = sigaretteEvitate.toString()
+            binding.tvRisparmioSoldi.text = String.format(Locale.getDefault(), "%.2f €", soldiRisparmiati)
+
+            giorniUtente = giorniPassati
+            trofeiAdapter.notifyDataSetChanged()
+
+            gestisciCodaTrofei(giorniPassati)
+
+        } catch (e: Exception) {
+            binding.tvRisparmioSoldi.text = "Err"
+        }
+    }
+
+    private fun gestisciCodaTrofei(giorniAttuali: Long) {
+        val prefs = requireContext().getSharedPreferences("SmokeShieldPrefs", Context.MODE_PRIVATE)
+        val ultimoTrofeoNotificato = prefs.getInt("ultimo_trofeo_notificato", 0)
+
+        val trofeiDaNotificare = listaTrofei
+            .filter { giorniAttuali >= it.giorniRichiesti && it.giorniRichiesti > ultimoTrofeoNotificato }
+            .sortedBy { it.giorniRichiesti }
+            .toMutableList()
+
+        if (trofeiDaNotificare.isNotEmpty()) {
+            mostraProssimoTrofeo(trofeiDaNotificare, prefs)
+        }
+    }
+
+    private fun mostraProssimoTrofeo(codaTrofei: MutableList<Trofeo>, prefs: android.content.SharedPreferences) {
+        if (codaTrofei.isEmpty()) return
+
+        val trofeoCorrente = codaTrofei.removeAt(0)
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("🏆 Nuovo Traguardo!")
+            .setMessage("Hai sbloccato un nuovo trofeo!\n\n${trofeoCorrente.icona} ${trofeoCorrente.titolo}\n\n${trofeoCorrente.descrizione}")
+            .setPositiveButton("Fantastico!") { dialog, _ ->
+
+                prefs.edit().putInt("ultimo_trofeo_notificato", trofeoCorrente.giorniRichiesti).apply()
+                dialog.dismiss()
+                mostraProssimoTrofeo(codaTrofei, prefs)
             }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun mostraDialogAbitudini() {
+        val uid = auth.currentUser?.uid ?: return
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_abitudini, null)
+
+        val etTipo = dialogView.findViewById<AutoCompleteTextView>(R.id.et_tipo_fumo)
+        val etQuantita = dialogView.findViewById<TextInputEditText>(R.id.et_quantita)
+        val tilQuantitaPacchetto = dialogView.findViewById<TextInputLayout>(R.id.til_quantita_pacchetto)
+        val etQuantitaPacchetto = dialogView.findViewById<TextInputEditText>(R.id.et_quantita_pacchetto)
+        val tilPrezzo = dialogView.findViewById<TextInputLayout>(R.id.til_prezzo)
+        val etPrezzo = dialogView.findViewById<TextInputEditText>(R.id.et_prezzo)
+        val etDataSmetto = dialogView.findViewById<TextInputEditText>(R.id.et_data_smetto)
+
+        val tipi = arrayOf("Sigarette", "Tabacco Trinciato", "IQOS / Terea")
+        etTipo.setAdapter(ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, tipi))
+
+        fun aggiornaTestiInBaseAlTipo(tipo: String) {
+            if (tipo == "Tabacco Trinciato") {
+                tilQuantitaPacchetto.hint = "Stima sigarette ricavate da una busta"
+                tilPrezzo.hint = "Prezzo totale (Tabacco+Filtri+Cartine) €"
+            } else {
+                tilQuantitaPacchetto.hint = "Sigarette in un pacchetto"
+                tilPrezzo.hint = "Prezzo di un pacchetto (€)"
+            }
+        }
+
+        etTipo.setOnItemClickListener { parent, _, position, _ ->
+            aggiornaTestiInBaseAlTipo(parent.getItemAtPosition(position).toString())
+        }
+
+        val calendar = Calendar.getInstance()
+        etDataSmetto.setOnClickListener {
+            DatePickerDialog(requireContext(), { _, anno, mese, giorno ->
+                etDataSmetto.setText(String.format(Locale.getDefault(), "%02d/%02d/%d", giorno, mese + 1, anno))
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
+        db.collection("users").document(uid).get().addOnSuccessListener { doc ->
+            if (doc.exists()) {
+                val tipoSalvato = doc.getString("abitudine_tipo") ?: "Sigarette"
+                etTipo.setText(tipoSalvato, false)
+                aggiornaTestiInBaseAlTipo(tipoSalvato)
+                etQuantita.setText(doc.getLong("abitudine_quantita")?.toString() ?: "")
+                etQuantitaPacchetto.setText(doc.getLong("abitudine_sigarette_pacchetto")?.toString() ?: "20")
+                etPrezzo.setText(doc.getDouble("abitudine_prezzo")?.toString() ?: "")
+                etDataSmetto.setText(doc.getString("data_smetto") ?: "")
+            }
+        }
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogView)
+            .setPositiveButton("Salva") { _, _ ->
+                val tipo = etTipo.text.toString()
+                val quantita = etQuantita.text.toString().toIntOrNull() ?: 0
+                val quantitaPacchetto = etQuantitaPacchetto.text.toString().toIntOrNull() ?: 20
+                val prezzo = etPrezzo.text.toString().replace(",", ".").toDoubleOrNull() ?: 0.0
+
+                db.collection("users").document(uid).set(mapOf(
+                    "abitudine_tipo" to tipo,
+                    "abitudine_quantita" to quantita,
+                    "abitudine_sigarette_pacchetto" to quantitaPacchetto,
+                    "abitudine_prezzo" to prezzo,
+                    "data_smetto" to etDataSmetto.text.toString()
+                ), SetOptions.merge()).addOnSuccessListener {
+                    Toast.makeText(requireContext(), "Abitudini salvate!", Toast.LENGTH_SHORT).show()
+
+                    requireContext().getSharedPreferences("SmokeShieldPrefs", Context.MODE_PRIVATE)
+                        .edit().putInt("ultimo_trofeo_notificato", 0).apply()
+
+                    caricaDatiUtente()
+                }
+            }
+            .setNegativeButton("Annulla", null)
+            .show()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    // --- ADAPTER DEI TROFEI ---
+    inner class TrofeiAdapter(private val dataset: List<Trofeo>) :
+        RecyclerView.Adapter<TrofeiAdapter.ViewHolder>() {
+
+        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            val card: MaterialCardView = view.findViewById(R.id.card_trofeo)
+            val tvIcona: TextView = view.findViewById(R.id.tv_trofeo_icona)
+            val tvTitolo: TextView = view.findViewById(R.id.tv_trofeo_titolo)
+            val tvDesc: TextView = view.findViewById(R.id.tv_trofeo_descrizione)
+            val chipStatus: Chip = view.findViewById(R.id.chip_status)
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_trofeo, parent, false)
+            return ViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val item = dataset[position]
+            holder.tvIcona.text = item.icona
+            holder.tvTitolo.text = item.titolo
+            holder.tvDesc.text = item.descrizione
+
+            if (giorniUtente >= item.giorniRichiesti) {
+                holder.card.setCardBackgroundColor(Color.WHITE)
+                holder.card.alpha = 1.0f
+                holder.chipStatus.text = "Sbloccato!"
+                holder.chipStatus.setChipBackgroundColorResource(android.R.color.holo_green_dark)
+                holder.chipStatus.setTextColor(Color.WHITE)
+            } else {
+                holder.card.setCardBackgroundColor(Color.parseColor("#F5F5F5"))
+                holder.card.alpha = 0.5f
+                holder.chipStatus.text = "Sblocca a ${item.giorniRichiesti} gg"
+                holder.chipStatus.setChipBackgroundColorResource(android.R.color.darker_gray)
+                holder.chipStatus.setTextColor(Color.WHITE)
+            }
+        }
+
+        override fun getItemCount() = dataset.size
     }
 }

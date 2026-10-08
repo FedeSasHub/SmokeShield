@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- SINISTRA -->
+    <item
+        android:id="@+id/healthFragment"
+        android:icon="@android:drawable/ic_menu_gallery"
+        android:title="Salute" />
+    <item
+        android:id="@+id/trophiesFragment"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="Trofei" />
+
+    <!-- CENTRO (Vuoto per l'SOS) -->
+    <item
+        android:id="@+id/placeholder"
+        android:title=""
+        android:enabled="false" />
+
+    <!-- DESTRA -->
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:title="Profilo" />
+    <item
+        android:id="@+id/historyFragment"
+        android:icon="@android:drawable/ic_menu_recent_history"
+        android:title="Storico" />
+</menu>

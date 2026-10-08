@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Le tue abitudini"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Questi dati ci servono per calcolare quanti soldi hai risparmiato da quando hai smesso."
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"
+        android:textColor="#888888"/>
+
+    <!-- Seleziona Tipo -->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Cosa fumavi?">
+        <AutoCompleteTextView
+            android:id="@+id/et_tipo_fumo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:text="Sigarette"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Quante al giorno -->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Stima sigarette al giorno">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_quantita"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- NUOVO: Quante in un pacchetto / busta -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_quantita_pacchetto"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Sigarette in un pacchetto">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_quantita_pacchetto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Prezzo -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_prezzo"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Prezzo di un pacchetto (€)">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_prezzo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Data Smetto -->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Data in cui hai smesso">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_data_smetto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:clickable="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>
