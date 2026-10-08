@@ -80,37 +80,26 @@
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_trofei_titolo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Timeline del Recupero Fisico"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ll_stats_minori" />
+            <!-- BOTTONI AZIONE -->
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_trofei"
+            <!-- NUOVO: BOTTONE TROFEI -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_trophies"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:clipToPadding="false"
-                android:paddingStart="4dp"
-                android:paddingEnd="4dp"
-                app:layout_constraintTop_toBottomOf="@id/tv_trofei_titolo" />
+                android:layout_marginTop="32dp"
+                android:text="I MIEI TROFEI"
+                android:backgroundTint="#FF9800"
+                app:layout_constraintTop_toBottomOf="@id/ll_stats_minori" />
 
-            <!-- BOTTONI AZIONE -->
-            <!-- IL BOTTONE RITROVATO: DASHBOARD SALUTE -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_health_dashboard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="12dp"
                 android:text="DASHBOARD SALUTE E GRAFICI"
                 android:backgroundTint="#4CAF50"
-                app:layout_constraintTop_toBottomOf="@id/rv_trofei" />
+                app:layout_constraintTop_toBottomOf="@id/btn_trophies" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_imposta_abitudini"

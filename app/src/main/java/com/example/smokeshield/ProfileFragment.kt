@@ -2,22 +2,16 @@ package com.example.smokeshield
 
 import android.app.DatePickerDialog
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.smokeshield.databinding.FragmentProfileBinding
-import com.google.android.material.card.MaterialCardView
-import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -31,8 +25,6 @@ import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
-data class Trofeo(val giorniRichiesti: Int, val icona: String, val titolo: String, val descrizione: String)
-
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
@@ -40,20 +32,6 @@ class ProfileFragment : Fragment() {
 
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
-
-    private val listaTrofei = listOf(
-        Trofeo(1, "🩸", "Sangue Pulito", "Il monossido di carbonio nel tuo sangue è sceso a livelli normali."),
-        Trofeo(3, "🫁", "Respiro Libero", "I tubi bronchiali iniziano a rilassarsi, rendendo più facile respirare."),
-        Trofeo(7, "👅", "Sensi Risvegliati", "Le terminazioni nervose si rigenerano: olfatto e gusto migliorano."),
-        Trofeo(14, "🫀", "Cuore Forte", "La circolazione sanguigna e la funzionalità polmonare sono in netto miglioramento."),
-        Trofeo(30, "🏃", "Rinascita", "Tosse e fiato corto diminuiscono del 30%. Inizia la vera disintossicazione."),
-        Trofeo(90, "🛡️", "Scudo di Ferro", "Il rischio di infarto ha iniziato a crollare drasticamente."),
-        Trofeo(180, "🌬️", "Polmoni Nuovi", "Le ciglia polmonari si sono rigenerate. Infezioni e tosse sono un lontano ricordo."),
-        Trofeo(365, "👑", "Traguardo d'Oro", "Il rischio di malattie cardiache è sceso esattamente alla metà rispetto a un fumatore.")
-    )
-
-    private var giorniUtente = 0L
-    private lateinit var trofeiAdapter: TrofeiAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,22 +44,30 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        trofeiAdapter = TrofeiAdapter(listaTrofei)
-        binding.rvTrofei.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.rvTrofei.adapter = trofeiAdapter
-
         caricaDatiUtente()
 
-        // --- I 3 BOTTONI DI NAVIGAZIONE ---
+        // --- I 4 BOTTONI DI NAVIGAZIONE PRINCIPALI ---
+
+        binding.btnTrophies.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_trophiesFragment)
+        }
+
         binding.btnHealthDashboard.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_healthFragment)
         }
-        binding.btnImpostaAbitudini.setOnClickListener { mostraDialogAbitudini() }
+
+        binding.btnImpostaAbitudini.setOnClickListener {
+            mostraDialogAbitudini()
+        }
+
         binding.btnVediStorico.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_historyFragment)
         }
 
-        binding.fabSettings.setOnClickListener { Toast.makeText(requireContext(), "Impostazioni in arrivo", Toast.LENGTH_SHORT).show() }
+        binding.fabSettings.setOnClickListener {
+            Toast.makeText(requireContext(), "Impostazioni in arrivo", Toast.LENGTH_SHORT).show()
+        }
+
         binding.btnLogout.setOnClickListener {
             auth.signOut()
             findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
@@ -96,13 +82,13 @@ class ProfileFragment : Fragment() {
                 .addOnSuccessListener { document ->
                     if (document != null && document.exists()) {
                         binding.tvMotivoDisplay.text = document.getString("motivazione") ?: "Nessuna motivazione inserita"
-                        calcolaRisparmioETrofei(document)
+                        calcolaRisparmio(document)
                     }
                 }
         }
     }
 
-    private fun calcolaRisparmioETrofei(doc: DocumentSnapshot) {
+    private fun calcolaRisparmio(doc: DocumentSnapshot) {
         val dataSmettoStr = doc.getString("data_smetto")
         val quantitaGiorno = doc.getLong("abitudine_quantita") ?: 0L
         val quantitaPacchetto = doc.getLong("abitudine_sigarette_pacchetto") ?: 20L
@@ -130,46 +116,9 @@ class ProfileFragment : Fragment() {
             binding.tvSigaretteEvitate.text = sigaretteEvitate.toString()
             binding.tvRisparmioSoldi.text = String.format(Locale.getDefault(), "%.2f €", soldiRisparmiati)
 
-            giorniUtente = giorniPassati
-            trofeiAdapter.notifyDataSetChanged()
-
-            gestisciCodaTrofei(giorniPassati)
-
         } catch (e: Exception) {
             binding.tvRisparmioSoldi.text = "Err"
         }
-    }
-
-    private fun gestisciCodaTrofei(giorniAttuali: Long) {
-        val prefs = requireContext().getSharedPreferences("SmokeShieldPrefs", Context.MODE_PRIVATE)
-        val ultimoTrofeoNotificato = prefs.getInt("ultimo_trofeo_notificato", 0)
-
-        val trofeiDaNotificare = listaTrofei
-            .filter { giorniAttuali >= it.giorniRichiesti && it.giorniRichiesti > ultimoTrofeoNotificato }
-            .sortedBy { it.giorniRichiesti }
-            .toMutableList()
-
-        if (trofeiDaNotificare.isNotEmpty()) {
-            mostraProssimoTrofeo(trofeiDaNotificare, prefs)
-        }
-    }
-
-    private fun mostraProssimoTrofeo(codaTrofei: MutableList<Trofeo>, prefs: android.content.SharedPreferences) {
-        if (codaTrofei.isEmpty()) return
-
-        val trofeoCorrente = codaTrofei.removeAt(0)
-
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("🏆 Nuovo Traguardo!")
-            .setMessage("Hai sbloccato un nuovo trofeo!\n\n${trofeoCorrente.icona} ${trofeoCorrente.titolo}\n\n${trofeoCorrente.descrizione}")
-            .setPositiveButton("Fantastico!") { dialog, _ ->
-
-                prefs.edit().putInt("ultimo_trofeo_notificato", trofeoCorrente.giorniRichiesti).apply()
-                dialog.dismiss()
-                mostraProssimoTrofeo(codaTrofei, prefs)
-            }
-            .setCancelable(false)
-            .show()
     }
 
     private fun mostraDialogAbitudini() {
@@ -237,6 +186,7 @@ class ProfileFragment : Fragment() {
                 ), SetOptions.merge()).addOnSuccessListener {
                     Toast.makeText(requireContext(), "Abitudini salvate!", Toast.LENGTH_SHORT).show()
 
+                    // Resetta la memoria dei trofei
                     requireContext().getSharedPreferences("SmokeShieldPrefs", Context.MODE_PRIVATE)
                         .edit().putInt("ultimo_trofeo_notificato", 0).apply()
 
@@ -250,46 +200,5 @@ class ProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    // --- ADAPTER DEI TROFEI ---
-    inner class TrofeiAdapter(private val dataset: List<Trofeo>) :
-        RecyclerView.Adapter<TrofeiAdapter.ViewHolder>() {
-
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val card: MaterialCardView = view.findViewById(R.id.card_trofeo)
-            val tvIcona: TextView = view.findViewById(R.id.tv_trofeo_icona)
-            val tvTitolo: TextView = view.findViewById(R.id.tv_trofeo_titolo)
-            val tvDesc: TextView = view.findViewById(R.id.tv_trofeo_descrizione)
-            val chipStatus: Chip = view.findViewById(R.id.chip_status)
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_trofeo, parent, false)
-            return ViewHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val item = dataset[position]
-            holder.tvIcona.text = item.icona
-            holder.tvTitolo.text = item.titolo
-            holder.tvDesc.text = item.descrizione
-
-            if (giorniUtente >= item.giorniRichiesti) {
-                holder.card.setCardBackgroundColor(Color.WHITE)
-                holder.card.alpha = 1.0f
-                holder.chipStatus.text = "Sbloccato!"
-                holder.chipStatus.setChipBackgroundColorResource(android.R.color.holo_green_dark)
-                holder.chipStatus.setTextColor(Color.WHITE)
-            } else {
-                holder.card.setCardBackgroundColor(Color.parseColor("#F5F5F5"))
-                holder.card.alpha = 0.5f
-                holder.chipStatus.text = "Sblocca a ${item.giorniRichiesti} gg"
-                holder.chipStatus.setChipBackgroundColorResource(android.R.color.darker_gray)
-                holder.chipStatus.setTextColor(Color.WHITE)
-            }
-        }
-
-        override fun getItemCount() = dataset.size
     }
 }

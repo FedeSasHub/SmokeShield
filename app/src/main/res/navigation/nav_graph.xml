@@ -20,6 +20,7 @@
             android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/quizFragment"
         android:name="com.example.smokeshield.QuizFragment"
@@ -34,6 +35,7 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="false" />
     </fragment>
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.smokeshield.ProfileFragment"
@@ -53,12 +55,18 @@
         <action
             android:id="@+id/action_profileFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
+        <!-- NUOVA AZIONE VERSO I TROFEI -->
+        <action
+            android:id="@+id/action_profileFragment_to_trophiesFragment"
+            app:destination="@id/trophiesFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.smokeshield.SettingsFragment"
         android:label="@string/titolo_impostazioni"
         tools:layout="@layout/fragment_settings" />
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.smokeshield.LoginFragment"
@@ -73,6 +81,7 @@
             android:id="@+id/action_loginFragment_to_onboardingFragment"
             app:destination="@id/onboardingFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/onboardingFragment"
         android:name="com.example.smokeshield.OnboardingFragment"
@@ -82,16 +91,23 @@
             app:destination="@id/homeFragment" />
     </fragment>
 
-    <!-- LA NUOVA SCHERMATA -->
     <fragment
         android:id="@+id/healthFragment"
         android:name="com.example.smokeshield.HealthFragment"
         android:label="Dashboard Salute"
         tools:layout="@layout/fragment_health" />
+
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.example.smokeshield.HistoryFragment"
-        android:label="fragment_history"
+        android:label="Storico Crisi"
         tools:layout="@layout/fragment_history" />
+
+    <!-- NUOVA SCHERMATA TROFEI -->
+    <fragment
+        android:id="@+id/trophiesFragment"
+        android:name="com.example.smokeshield.TrophiesFragment"
+        android:label="I Tuoi Trofei"
+        tools:layout="@layout/fragment_trophies" />
 
 </navigation>
