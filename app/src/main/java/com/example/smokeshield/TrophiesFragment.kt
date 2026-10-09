@@ -20,7 +20,6 @@ import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
-// Il Modello Dati (stesso del precedente)
 data class TrofeoItem(val giorniRichiesti: Int, val icona: String, val titolo: String, val descrizione: String)
 
 class TrophiesFragment : Fragment() {
@@ -56,17 +55,14 @@ class TrophiesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Tasto Indietro
         binding.btnBackToProfile.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        // Configurazione Lista
         adapter = TrophiesAdapter(listaTrofei)
         binding.rvTrophiesList.layoutManager = LinearLayoutManager(requireContext())
         binding.rvTrophiesList.adapter = adapter
 
-        // Scarichiamo la data in cui ha smesso per colorare i trofei
         calcolaGiorniUtente()
     }
 
@@ -85,10 +81,8 @@ class TrophiesFragment : Fragment() {
                             giorniSenzaFumo = TimeUnit.MILLISECONDS.toDays(diffMillis)
                             if (giorniSenzaFumo < 0) giorniSenzaFumo = 0
 
-                            // Avvisiamo l'adapter che sappiamo quanti giorni sono passati
                             adapter.notifyDataSetChanged()
                         } catch (e: Exception) {
-                            // Errore di formato data
                         }
                     }
                 }
@@ -100,7 +94,6 @@ class TrophiesFragment : Fragment() {
         _binding = null
     }
 
-    // --- L'ADAPTER INTERNO ---
     inner class TrophiesAdapter(private val dataset: List<TrofeoItem>) :
         RecyclerView.Adapter<TrophiesAdapter.ViewHolder>() {
 
@@ -123,16 +116,13 @@ class TrophiesFragment : Fragment() {
             holder.tvTitolo.text = item.titolo
             holder.tvDesc.text = item.descrizione
 
-            // Se l'utente ha superato i giorni richiesti...
             if (giorniSenzaFumo >= item.giorniRichiesti) {
-                // SBLOCCATO
                 holder.card.setCardBackgroundColor(Color.WHITE)
                 holder.card.alpha = 1.0f
                 holder.chipStatus.text = "Sbloccato!"
                 holder.chipStatus.setChipBackgroundColorResource(android.R.color.holo_green_dark)
                 holder.chipStatus.setTextColor(Color.WHITE)
             } else {
-                // BLOCCATO
                 holder.card.setCardBackgroundColor(Color.parseColor("#F5F5F5"))
                 holder.card.alpha = 0.5f
                 holder.chipStatus.text = "Sblocca a ${item.giorniRichiesti} gg"

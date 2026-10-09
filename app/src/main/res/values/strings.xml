@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">STEADY</string>
 
-    <!-- Testi Schermate Principali -->
     <string name="smokeshield">Home</string>
     <string name="home_title">Benvenuto/a in STEADY!</string>
     <string name="welcome_message">premere in caso di crisi</string>
@@ -14,7 +13,6 @@
     <string name="profile_title">La tua email</string>
     <string name="history_title">Storico</string>
 
-    <!-- Testi Login e Autenticazione -->
     <string name="accedi_per_resistere_alla_crisi">Per iniziare, Accedi o Crea un Account</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -23,7 +21,6 @@
     <string name="accedi_con_google">Accedi con Google</string>
     <string name="btn_logout">Disconnetti (Logout)</string>
 
-    <!-- Testi Onboarding -->
     <string name="benvenuto_a_bordo">Benvenuto</string>
     <string name="per_aiutarti_al_meglio_durante_le_crisi_abbiamo_bisogno_di_conoscerti">Per aiutarti al meglio, abbiamo bisogno di conoscerti.</string>
     <string name="da_quanti_anni_fumi">Da quanti anni fumi?</string>
@@ -31,7 +28,6 @@
     <string name="la_tua_motivazione_es_salute_soldi_figli">La tua motivazione (es. Salute, Soldi, Figli)</string>
     <string name="inizia_il_percorso">INIZIA</string>
 
-    <!-- Testi Gioco e Quiz -->
     <string name="select_difficulty">Scegli la difficoltà</string>
     <string name="diff_test">Test (1 min)</string>
     <string name="diff_easy">Facile (5 min)</string>
@@ -44,11 +40,9 @@
     <string name="answer_c">...</string>
     <string name="answer_d">...</string>
 
-    <!-- Statistiche e Risultati -->
     <string name="punteggio_0">Punteggio: 0</string>
     <string name="punteggio_format">Punteggio: %1$d</string>
     <string name="stats_crises_won">Crisi superate: 0</string>
     <string name="stats_time_saved">Tempo guadagnato: 0 min</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -21,7 +21,6 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        // Gestione tasto SOS (Quiz)
         binding.btnSos.setOnClickListener {
             val options = arrayOf(
                 "Facile (1 min)",
@@ -44,27 +43,22 @@ class HomeFragment : Fragment() {
                 .show()
         }
 
-        // Pulsante Profilo
         binding.btnGotoProfile?.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
         }
 
-        // Pulsante Impostazioni
         binding.btnGotoSettings?.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
         }
 
-        // Pulsante Salute (corretto con l'ID del nav_graph)
         binding.btnGotoHealth?.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_healthFragment)
         }
 
-        // Pulsante Trofei
         binding.btnGotoTrophies?.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_trophiesFragment)
         }
 
-        // Gestione Tutorial
         binding.btnTutorial.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Come funziona l'app")

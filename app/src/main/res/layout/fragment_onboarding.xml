@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="24dp"
-            tools:context=".BENVENUTO/A!">
+            tools:context=".OnboardingFragment">
 
             <TextView
                 android:id="@+id/tv_welcome_title"

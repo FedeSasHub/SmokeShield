@@ -16,7 +16,6 @@
         android:padding="16dp"
         android:gravity="center">
 
-        <!-- L'Emoji Medica Gigante -->
         <TextView
             android:id="@+id/tv_trofeo_icona"
             android:layout_width="wrap_content"
@@ -34,7 +33,6 @@
             android:textSize="18sp"
             android:gravity="center" />
 
-        <!-- Descrizione di cosa accade al corpo -->
         <TextView
             android:id="@+id/tv_trofeo_descrizione"
             android:layout_width="match_parent"
@@ -45,7 +43,6 @@
             android:textSize="14sp"
             android:gravity="center" />
 
-        <!-- Il Badge Sbloccato/Bloccato -->
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_status"
             android:layout_width="wrap_content"

@@ -46,8 +46,6 @@ class ProfileFragment : Fragment() {
 
         caricaDatiUtente()
 
-        // --- I 4 BOTTONI DI NAVIGAZIONE PRINCIPALI ---
-
         binding.btnTrophies.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_trophiesFragment)
         }
@@ -186,7 +184,6 @@ class ProfileFragment : Fragment() {
                 ), SetOptions.merge()).addOnSuccessListener {
                     Toast.makeText(requireContext(), "Abitudini salvate!", Toast.LENGTH_SHORT).show()
 
-                    // Resetta la memoria dei trofei
                     requireContext().getSharedPreferences("SmokeShieldPrefs", Context.MODE_PRIVATE)
                         .edit().putInt("ultimo_trofeo_notificato", 0).apply()
 

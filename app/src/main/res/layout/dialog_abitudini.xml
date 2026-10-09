@@ -24,7 +24,6 @@
         android:layout_marginBottom="20dp"
         android:textColor="?android:attr/textColorSecondary"/>
 
-    <!-- Seleziona Tipo -->
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
@@ -42,7 +41,6 @@
             android:text="Sigarette"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Quante al giorno -->
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
@@ -60,7 +58,6 @@
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Quante in un pacchetto / busta -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_quantita_pacchetto"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -79,7 +76,6 @@
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Prezzo -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_prezzo"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -98,7 +94,6 @@
             android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Data Smetto -->
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"

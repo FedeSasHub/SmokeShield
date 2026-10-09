@@ -28,7 +28,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- CARD SEZIONE TEMA -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_theme"
                 android:layout_width="match_parent"
@@ -78,7 +77,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- CARD SEZIONE NOTIFICHE / ROUTINE -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_notifications"
                 android:layout_width="match_parent"
@@ -151,7 +149,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- BOTTONI AZIONE -->
             <Button
                 android:id="@+id/btn_schedule"
                 android:layout_width="match_parent"

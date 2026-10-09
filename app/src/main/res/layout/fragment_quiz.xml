@@ -15,7 +15,6 @@
             android:padding="24dp"
             tools:context=".QuizFragment">
 
-            <!-- CARD SUPERIORE: TIMER E PUNTEGGIO -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_header"
                 android:layout_width="match_parent"
@@ -56,7 +55,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- CARD DOMANDE -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_question"
                 android:layout_width="match_parent"
@@ -80,7 +78,6 @@
                     android:textColor="?android:attr/textColorPrimary" />
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- OPZIONI DI RISPOSTA -->
             <LinearLayout
                 android:id="@+id/ll_answers"
                 android:layout_width="match_parent"
@@ -129,7 +126,6 @@
 
             </LinearLayout>
 
-            <!-- TASTO TERMINA ORA -->
             <Button
                 android:id="@+id/btn_termina_ora"
                 style="@style/Widget.MaterialComponents.Button.TextButton"

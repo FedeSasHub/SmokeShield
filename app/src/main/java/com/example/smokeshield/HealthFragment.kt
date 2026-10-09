@@ -15,11 +15,9 @@ import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
-// Import per Health Connect
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.PermissionController
 import androidx.health.connect.client.permission.HealthPermission
@@ -30,23 +28,22 @@ import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.AggregateGroupByPeriodRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 
-// Import di Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-// Import di Vico
 import com.patrykandpatrick.vico.core.entry.entryModelOf
 import com.patrykandpatrick.vico.core.axis.AxisPosition
 import com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter
 import com.patrykandpatrick.vico.core.axis.vertical.VerticalAxis
+import com.patrykandpatrick.vico.core.axis.horizontal.HorizontalAxis
 import com.patrykandpatrick.vico.core.axis.AxisItemPlacer
+import com.patrykandpatrick.vico.core.chart.values.AxisValuesOverrider
 
 class HealthFragment : Fragment() {
 
     private var _binding: FragmentHealthBinding? = null
     private val binding get() = _binding!!
 
-    // Inizializza Firebase
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
 
@@ -80,8 +77,6 @@ class HealthFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        impostaFormattazioneAssiY()
-
         binding.toggleGroupTime.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (isChecked) {
                 when (checkedId) {
@@ -91,29 +86,81 @@ class HealthFragment : Fragment() {
             }
         }
 
+        binding.toggleGroupTime.check(R.id.btn_7_days)
         caricaDatiReali(7)
         controllaEAvviaSalute()
     }
 
-    private fun impostaFormattazioneAssiY() {
-        val asseCrisi = binding.vicoChartCrises.startAxis as? VerticalAxis<AxisPosition.Vertical.Start>
-        if (asseCrisi != null) {
-            asseCrisi.valueFormatter = AxisValueFormatter { value, _ -> value.toInt().toString() }
-            asseCrisi.itemPlacer = AxisItemPlacer.Vertical.default(maxItemCount = 6)
+    private fun impostaFormattazioneAssi(giorni: Int) {
+        val standardFormatter = AxisValueFormatter<AxisPosition.Vertical.Start> { value, _ ->
+            value.toInt().toString()
         }
+
+        val passiFormatter = AxisValueFormatter<AxisPosition.Vertical.Start> { value, _ ->
+            if (value >= 1000f) {
+                String.format(java.util.Locale.getDefault(), "%.1fk", value / 1000f)
+            } else {
+                value.toInt().toString()
+            }
+        }
+
+        val asseCrisi = binding.vicoChartCrises.startAxis as? VerticalAxis<AxisPosition.Vertical.Start>
+        asseCrisi?.valueFormatter = standardFormatter
+        asseCrisi?.itemPlacer = AxisItemPlacer.Vertical.default(maxItemCount = 6)
 
         val assePassi = binding.vicoChartSteps.startAxis as? VerticalAxis<AxisPosition.Vertical.Start>
-        if (assePassi != null) {
-            assePassi.valueFormatter = AxisValueFormatter { value, _ -> value.toInt().toString() }
-            assePassi.itemPlacer = AxisItemPlacer.Vertical.default(maxItemCount = 5)
+        assePassi?.valueFormatter = passiFormatter
+        assePassi?.itemPlacer = AxisItemPlacer.Vertical.default(maxItemCount = 5)
+
+        val asseCuore = binding.vicoChartHeartRate.startAxis as? VerticalAxis<AxisPosition.Vertical.Start>
+        asseCuore?.valueFormatter = standardFormatter
+        asseCuore?.itemPlacer = AxisItemPlacer.Vertical.default(maxItemCount = 6)
+
+        val rangeOverrider = AxisValuesOverrider.fixed(minY = 60f, maxY = 100f)
+        val chartCuore = binding.vicoChartHeartRate.chart
+        if (chartCuore is com.patrykandpatrick.vico.core.chart.line.LineChart) {
+            chartCuore.axisValuesOverrider = rangeOverrider
         }
 
-        // NUOVO: Formattazione per i Battiti (BPM interi)
-        val asseCuore = binding.vicoChartHeartRate.startAxis as? VerticalAxis<AxisPosition.Vertical.Start>
-        if (asseCuore != null) {
-            asseCuore.valueFormatter = AxisValueFormatter { value, _ -> value.toInt().toString() }
-            asseCuore.itemPlacer = AxisItemPlacer.Vertical.default(maxItemCount = 5)
+        try {
+            (binding.vicoChartCrises.chart as? com.patrykandpatrick.vico.core.chart.column.ColumnChart)
+                ?.columns?.forEach { it.color = android.graphics.Color.parseColor("#FF9800") }
+
+            (binding.vicoChartSteps.chart as? com.patrykandpatrick.vico.core.chart.column.ColumnChart)
+                ?.columns?.forEach { it.color = android.graphics.Color.parseColor("#4CAF50") }
+
+            (binding.vicoChartHeartRate.chart as? com.patrykandpatrick.vico.core.chart.line.LineChart)
+                ?.lines?.forEach { it.lineColor = android.graphics.Color.parseColor("#E91E63") }
+        } catch (e: Exception) {
         }
+
+        val spazioDate = if (giorni == 30) 6 else 2
+        val horizontalPlacer = AxisItemPlacer.Horizontal.default(
+            spacing = spazioDate,
+            addExtremeLabelPadding = true
+        )
+
+        val xAxisFormatter = AxisValueFormatter<AxisPosition.Horizontal.Bottom> { value, _ ->
+            val index = value.toInt()
+            if (index in 1..giorni) {
+                val giorniFa = giorni - index
+                LocalDate.now().minusDays(giorniFa.toLong()).format(DateTimeFormatter.ofPattern("dd/MM"))
+            } else {
+                ""
+            }
+        }
+
+        val asseCrisiX = binding.vicoChartCrises.bottomAxis as? HorizontalAxis<AxisPosition.Horizontal.Bottom>
+        asseCrisiX?.valueFormatter = xAxisFormatter
+        asseCrisiX?.itemPlacer = horizontalPlacer
+
+        val assePassiX = binding.vicoChartSteps.bottomAxis as? HorizontalAxis<AxisPosition.Horizontal.Bottom>
+        assePassiX?.valueFormatter = xAxisFormatter
+        assePassiX?.itemPlacer = horizontalPlacer
+
+        val asseCuoreX = binding.vicoChartHeartRate.bottomAxis as? HorizontalAxis<AxisPosition.Horizontal.Bottom>
+        asseCuoreX?.valueFormatter = xAxisFormatter
+        asseCuoreX?.itemPlacer = horizontalPlacer
     }
 
     private fun controllaEAvviaSalute() {
@@ -169,12 +216,14 @@ class HealthFragment : Fragment() {
         val uid = auth.currentUser?.uid
         if (uid == null) return
 
+        impostaFormattazioneAssi(giorni)
+
         lifecycleScope.launch {
             try {
                 val oggi = LocalDate.now()
 
                 val contatorePassiPerGiorno = IntArray(giorni) { 0 }
-                val bpmPerGiorno = FloatArray(giorni) { 0f } // Nuovo array per i battiti
+                val bpmPerGiorno = FloatArray(giorni) { 0f }
                 val sdkStatus = HealthConnectClient.getSdkStatus(requireContext())
 
                 if (sdkStatus == HealthConnectClient.SDK_AVAILABLE) {
@@ -185,7 +234,6 @@ class HealthFragment : Fragment() {
                     val startTimeLocal = endTimeLocal.minusDays(giorni.toLong())
                     val filter = TimeRangeFilter.between(startTimeLocal, endTimeLocal)
 
-                    // 1. CARICAMENTO PASSI AGGREGATI
                     if (granted.contains(HealthPermission.getReadPermission(StepsRecord::class))) {
                         val requestPassi = AggregateGroupByPeriodRequest(
                             metrics = setOf(StepsRecord.COUNT_TOTAL),
@@ -206,7 +254,6 @@ class HealthFragment : Fragment() {
                         }
                     }
 
-                    // 2. CARICAMENTO BATTITO CARDIACO AGGREGATO (NUOVO)
                     if (granted.contains(HealthPermission.getReadPermission(HeartRateRecord::class))) {
                         val requestCuore = AggregateGroupByPeriodRequest(
                             metrics = setOf(HeartRateRecord.BPM_AVG),
@@ -216,7 +263,6 @@ class HealthFragment : Fragment() {
                         val responseCuore = client.aggregateGroupByPeriod(requestCuore)
 
                         for (bucket in responseCuore) {
-                            // Conversione ultra-sicura (gestisce tutti i formati numerici di Google)
                             val mediaBpm = bucket.result[HeartRateRecord.BPM_AVG]?.toString()?.toFloatOrNull() ?: 0f
                             val dataBucket = bucket.startTime.toLocalDate()
                             val giorniTrascorsi = ChronoUnit.DAYS.between(dataBucket, oggi).toInt()
@@ -229,7 +275,6 @@ class HealthFragment : Fragment() {
                     }
                 }
 
-                // Generiamo il grafico dei Passi
                 val datiPassi = Array(giorni) { indice ->
                     val giornoX = (indice + 1).toFloat()
                     val passiY = contatorePassiPerGiorno[indice].toFloat()
@@ -237,7 +282,6 @@ class HealthFragment : Fragment() {
                 }
                 binding.vicoChartSteps.setModel(entryModelOf(*datiPassi))
 
-                // Generiamo il grafico del Battito Cardiaco (NUOVO)
                 val datiCuore = Array(giorni) { indice ->
                     val giornoX = (indice + 1).toFloat()
                     val cuoreY = bpmPerGiorno[indice]
@@ -245,7 +289,6 @@ class HealthFragment : Fragment() {
                 }
                 binding.vicoChartHeartRate.setModel(entryModelOf(*datiCuore))
 
-                // 3. CARICAMENTO CRISI DA FIREBASE
                 db.collection("users").document(uid).collection("history")
                     .get()
                     .addOnSuccessListener { querySnapshot ->
@@ -264,7 +307,6 @@ class HealthFragment : Fragment() {
                                         contatoreCrisiPerGiorno[indiceArray]++
                                     }
                                 } catch (e: Exception) {
-                                    // Continua in caso di errore di parse
                                 }
                             }
                         }

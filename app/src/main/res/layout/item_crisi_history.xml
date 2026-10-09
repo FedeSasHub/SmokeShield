@@ -15,14 +15,12 @@
         android:padding="16dp"
         android:gravity="center_vertical">
 
-        <!-- Icona -->
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:src="@android:drawable/ic_menu_recent_history"
             app:tint="#4CAF50" />
 
-        <!-- Testi (Data e Dettagli) -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -48,7 +46,6 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- Punteggio -->
         <TextView
             android:id="@+id/tv_item_punteggio"
             android:layout_width="wrap_content"

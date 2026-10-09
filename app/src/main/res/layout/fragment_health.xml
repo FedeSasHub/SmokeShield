@@ -34,7 +34,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_health_title" />
 
-            <!-- Box Metriche in alto -->
             <LinearLayout
                 android:id="@+id/ll_metrics"
                 android:layout_width="match_parent"
@@ -62,7 +61,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Passi Totali (Ultimi 7gg)"
+                            android:text="Passi (Oggi)"
                             android:textColor="?android:attr/textColorSecondary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -96,7 +95,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Ultimo Battito Registrato"
+                            android:text="Ultimi BPM Registrati"
                             android:textColor="?android:attr/textColorSecondary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -113,7 +112,6 @@
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
-            <!-- SELETTORE DEL TEMPO -->
             <com.google.android.material.button.MaterialButtonToggleGroup
                 android:id="@+id/toggle_group_time"
                 android:layout_width="match_parent"
@@ -140,7 +138,6 @@
                     android:text="30 gg" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
-            <!-- CARD 1: GRAFICO A BARRE DELLE CRISI -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_chart_crises"
                 android:layout_width="match_parent"
@@ -175,7 +172,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- CARD 2: GRAFICO A BARRE DEI PASSI -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_chart_steps"
                 android:layout_width="match_parent"
@@ -210,7 +206,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- CARD 3: GRAFICO A LINEA DEL BATTITO CARDIACO -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_chart_heart_rate"
                 android:layout_width="match_parent"

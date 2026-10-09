@@ -29,7 +29,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_history_title"/>
 
-        <!-- BOX DELLE STATISTICHE (Stile Card Stondeggiante) -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/ll_stats"
             android:layout_width="match_parent"
@@ -74,7 +73,6 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- La RecyclerView (La lista delle crisi) -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_history"
             android:layout_width="match_parent"

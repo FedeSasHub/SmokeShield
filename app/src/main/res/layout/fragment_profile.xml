@@ -14,7 +14,6 @@
             android:layout_height="wrap_content"
             android:padding="20dp">
 
-            <!-- INTESTAZIONE -->
             <TextView
                 android:id="@+id/tv_welcome"
                 android:layout_height="wrap_content"
@@ -66,7 +65,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- CRUSCOTTO RISULTATI -->
             <TextView
                 android:id="@+id/tv_risultati_titolo"
                 android:layout_width="wrap_content"
@@ -182,8 +180,6 @@
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
-            <!-- BOTTONI AZIONE -->
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_trophies"
                 android:layout_width="match_parent"
@@ -227,7 +223,6 @@
                 app:cornerRadius="16dp"
                 app:layout_constraintTop_toBottomOf="@id/btn_imposta_abitudini" />
 
-            <!-- BOTTONI DI GESTIONE -->
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_settings"
                 android:layout_width="wrap_content"

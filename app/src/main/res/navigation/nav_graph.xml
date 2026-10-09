@@ -64,7 +64,6 @@
         <action
             android:id="@+id/action_profileFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
-        <!-- NUOVA AZIONE VERSO I TROFEI -->
         <action
             android:id="@+id/action_profileFragment_to_trophiesFragment"
             app:destination="@id/trophiesFragment" />
@@ -112,7 +111,6 @@
         android:label="Storico Crisi"
         tools:layout="@layout/fragment_history" />
 
-    <!-- NUOVA SCHERMATA TROFEI -->
     <fragment
         android:id="@+id/trophiesFragment"
         android:name="com.example.smokeshield.TrophiesFragment"

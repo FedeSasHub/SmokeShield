@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Colori di base -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Palette Med-Tech Giocoso -->
-    <color name="primaryColor">#2563EB</color>       <!-- Blu medico brillante e moderno -->
-    <color name="primaryLightColor">#DBEAFE</color>  <!-- Azzurro pastello morbido -->
-    <color name="primaryDarkColor">#1E40AF</color>   <!-- Blu profondo per barre -->
+    <color name="primaryColor">#2563EB</color>
+    <color name="primaryLightColor">#DBEAFE</color>
+    <color name="primaryDarkColor">#1E40AF</color>
 
-    <color name="secondaryColor">#F59E0B</color>     <!-- Arancione caldo/giocoso per premi e obiettivi -->
+    <color name="secondaryColor">#F59E0B</color>
     <color name="secondaryLightColor">#FEF3C7</color>
 
-    <color name="colorHealth">#10B981</color>        <!-- Verde clinico brillante (Salute/Successo) -->
-    <color name="colorTrophies">#EC4899</color>      <!-- Rosa/Magenta vivace per i Trofei -->
+    <color name="colorHealth">#10B981</color>
+    <color name="colorTrophies">#EC4899</color>
     <color name="colorSos">#EF4444</color>
-    <!-- Rosso chiaro ma deciso per l'emergenza -->
     <color name="app_background">#F7F5F0</color>
 
-    <color name="backgroundColor">#F8FAFC</color>    <!-- Sfondo grigio-azzurro lunare, rilassante -->
-    <color name="surfaceColor">#FFFFFF</color>       <!-- Bianco puro per le card -->
-    <color name="textColor">#0F172A</color>          <!-- Testo principale scuro e leggibile -->
-    <color name="textColorLight">#64748B</color>     <!-- Testo secondario grigio medio -->
+    <color name="backgroundColor">#F8FAFC</color>
+    <color name="surfaceColor">#FFFFFF</color>
+    <color name="textColor">#0F172A</color>
+    <color name="textColorLight">#64748B</color>
 </resources>
