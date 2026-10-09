@@ -7,6 +7,7 @@
 
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
         <item name="android:statusBarColor">@color/backgroundColorDark</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:navigationBarColor">@color/backgroundColorDark</item>
 
         <item name="android:colorBackground">@color/backgroundColorDark</item>

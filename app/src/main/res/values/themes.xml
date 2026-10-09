@@ -6,7 +6,8 @@
         <item name="colorOnSecondary">@color/white</item>
 
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
-        <item name="android:statusBarColor">@color/backgroundColor</item>
+        <item name="android:statusBarColor">@color/primaryColor</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:navigationBarColor">@color/backgroundColor</item>
 
         <item name="android:colorBackground">@color/backgroundColor</item>

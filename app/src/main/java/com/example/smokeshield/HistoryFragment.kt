@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+// Aggiunto "dateObj" per poter riordinare la lista correttamente
 data class CrisiStorico(val data: String, val livello: String, val durata: Int, val punteggio: Int, val dateObj: Date)
 
 class HistoryFragment : Fragment() {
@@ -45,10 +46,12 @@ class HistoryFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        // Configurazione RecyclerView
         adapter = StoricoAdapter(listaCrisi)
         binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
         binding.rvHistory.adapter = adapter
 
+        // Avvia il caricamento
         caricaStoricoECalcolaStatistiche()
     }
 
@@ -72,6 +75,7 @@ class HistoryFragment : Fragment() {
                     val punteggio = doc.getLong("punteggio")?.toInt() ?: 0
                     val durata = doc.getLong("durata_minuti")?.toInt() ?: 0
 
+                    // Ripristiniamo la tua logica di calcolo del livello
                     val livelloGrezzo = doc.getString("livello") ?: when {
                         durata <= 1 -> "Facile"
                         durata <= 5 -> "Medio"
@@ -83,6 +87,7 @@ class HistoryFragment : Fragment() {
                         else -> livelloGrezzo
                     }
 
+                    // Calcolo dei totali
                     minutiTotali += durata
                     when (livelloNormalizzato) {
                         "Facile" -> if (punteggio > recordFacile) recordFacile = punteggio
@@ -90,6 +95,7 @@ class HistoryFragment : Fragment() {
                         "Difficile" -> if (punteggio > recordDifficile) recordDifficile = punteggio
                     }
 
+                    // Parse della data per ordinamento
                     val dateObj = try {
                         sdf.parse(dataString) ?: Date(0)
                     } catch (e: Exception) {
@@ -99,13 +105,16 @@ class HistoryFragment : Fragment() {
                     listaCrisi.add(CrisiStorico(dataString, livelloNormalizzato, durata, punteggio, dateObj))
                 }
 
+                // Ordina per data (dalla più recente)
                 listaCrisi.sortByDescending { it.dateObj }
 
+                // Aggiorna le statistiche in alto a schermo[cite: 1.2]
                 val numeroCrisi = listaCrisi.size
                 binding.tvStatsCrises.text = "Crisi superate: $numeroCrisi"
                 binding.tvStatsTime.text = "Tempo totale: $minutiTotali min"
                 binding.tvStatsRecord.text = "Record - Facile: $recordFacile | Medio: $recordMedio | Difficile: $recordDifficile"
 
+                // Avvisa l'adapter
                 adapter.notifyDataSetChanged()
 
                 if (listaCrisi.isEmpty()) {
@@ -122,6 +131,7 @@ class HistoryFragment : Fragment() {
         _binding = null
     }
 
+    // --- ADAPTER INTERNO ---
     inner class StoricoAdapter(private val dataset: List<CrisiStorico>) :
         RecyclerView.Adapter<StoricoAdapter.ViewHolder>() {
 
@@ -142,9 +152,11 @@ class HistoryFragment : Fragment() {
             holder.tvData.text = item.data
             holder.tvDettagli.text = "Livello: ${item.livello} • Durata: ${item.durata} min"
 
+            // --- FIX: Controllo del segno per il punteggio ---
             if (item.punteggio > 0) {
                 holder.tvPunteggio.text = "+${item.punteggio} pt"
             } else {
+                // Se è 0 o negativo, stampa direttamente il numero (avrà già il -)
                 holder.tvPunteggio.text = "${item.punteggio} pt"
             }
         }
