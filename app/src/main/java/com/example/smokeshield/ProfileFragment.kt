@@ -62,10 +62,6 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.action_profileFragment_to_historyFragment)
         }
 
-        binding.fabSettings.setOnClickListener {
-            Toast.makeText(requireContext(), "Impostazioni in arrivo", Toast.LENGTH_SHORT).show()
-        }
-
         binding.btnLogout.setOnClickListener {
             auth.signOut()
             findNavController().navigate(R.id.action_profileFragment_to_loginFragment)

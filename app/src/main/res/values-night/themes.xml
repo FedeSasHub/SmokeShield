@@ -1,7 +1,25 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Base.Theme.SmokeShield" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primaryLightColor</item>
+        <item name="colorOnPrimary">@color/textColorDarkTheme</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorOnSecondary">@color/white</item>
+
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
-        <item name="android:statusBarColor">?android:attr/colorBackground</item>
-        <item name="android:navigationBarColor">?android:attr/colorBackground</item>
+        <item name="android:statusBarColor">@color/backgroundColorDark</item>
+        <item name="android:navigationBarColor">@color/backgroundColorDark</item>
+
+        <item name="android:colorBackground">@color/backgroundColorDark</item>
+        <item name="colorSurface">@color/surfaceColorDark</item>
+        <item name="colorError">@color/colorSos</item>
+
+        <item name="android:textColorPrimary">@color/textColorDarkTheme</item>
+        <item name="android:textColorSecondary">@color/textColorSecondaryDark</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.SmokeShield.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.SmokeShield.Medium</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.SmokeShield.Large</item>
     </style>
+
+    <style name="Theme.SmokeShield" parent="Base.Theme.SmokeShield" />
 </resources>

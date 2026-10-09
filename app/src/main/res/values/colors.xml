@@ -4,7 +4,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="primaryColor">#2563EB</color>
-    <color name="primaryLightColor">#DBEAFE</color>
+    <color name="primaryLightColor">#5789D1</color>
     <color name="primaryDarkColor">#1E40AF</color>
 
     <color name="secondaryColor">#F59E0B</color>
@@ -19,4 +19,9 @@
     <color name="surfaceColor">#FFFFFF</color>
     <color name="textColor">#0F172A</color>
     <color name="textColorLight">#64748B</color>
+
+    <color name="backgroundColorDark">#0B1120</color>
+    <color name="surfaceColorDark">#1E293B</color>
+    <color name="textColorDarkTheme">#F8FAFC</color>
+    <color name="textColorSecondaryDark">#94A3B8</color>
 </resources>

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smokeshield.databinding.FragmentTrophiesBinding
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
+import com.google.android.material.color.MaterialColors
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
@@ -116,15 +117,17 @@ class TrophiesFragment : Fragment() {
             holder.tvTitolo.text = item.titolo
             holder.tvDesc.text = item.descrizione
 
+            val surfaceColor = MaterialColors.getColor(holder.card, com.google.android.material.R.attr.colorSurface)
+
             if (giorniSenzaFumo >= item.giorniRichiesti) {
-                holder.card.setCardBackgroundColor(Color.WHITE)
+                holder.card.setCardBackgroundColor(surfaceColor)
                 holder.card.alpha = 1.0f
                 holder.chipStatus.text = "Sbloccato!"
                 holder.chipStatus.setChipBackgroundColorResource(android.R.color.holo_green_dark)
                 holder.chipStatus.setTextColor(Color.WHITE)
             } else {
-                holder.card.setCardBackgroundColor(Color.parseColor("#F5F5F5"))
-                holder.card.alpha = 0.5f
+                holder.card.setCardBackgroundColor(surfaceColor)
+                holder.card.alpha = 0.45f
                 holder.chipStatus.text = "Sblocca a ${item.giorniRichiesti} gg"
                 holder.chipStatus.setChipBackgroundColorResource(android.R.color.darker_gray)
                 holder.chipStatus.setTextColor(Color.WHITE)
